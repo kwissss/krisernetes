@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: podinfo-helm-chart-value-overrides
+  namespace: podinfo
+data:
+  values.yaml: |-
+    replicaCount: 2
