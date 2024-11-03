@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+tasks:
+  flux:
+    desc: Bootstrap Flux
+    cmds:
+      - 'flux bootstrap github --token-auth --owner=kwissss --repository=krisernetes --branch=main --path=kubernetes/main --personal'
