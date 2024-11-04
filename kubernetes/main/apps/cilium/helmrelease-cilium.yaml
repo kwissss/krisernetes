@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: cilium
+spec:
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: cilium
+      version: 1.16.3
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+      interval: 5m
+  releaseName: cilium
+  valuesFrom:
+  - kind: ConfigMap
+    name: cilium-helm-chart-value-overrides
+    valuesKey: values.yaml
