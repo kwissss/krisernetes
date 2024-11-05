@@ -13,6 +13,8 @@ data:
     rollOutCiliumPods: true
     l2announcements:
       enabled: true
+    externalIPs:
+      enabled: true
     envoy:
       rollOutPods: true
     operator:
