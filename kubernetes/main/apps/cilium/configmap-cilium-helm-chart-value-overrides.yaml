@@ -19,9 +19,13 @@ data:
       rollOutPods: true
     operator:
       rollOutPods: true
+      replicas: 1
     hubble:
       relay:
         rollOutPods: true
       ui:
         rollOutPods: true
-    
+    k8sClientRateLimit:
+      qps: 50
+      burst: 100
+
