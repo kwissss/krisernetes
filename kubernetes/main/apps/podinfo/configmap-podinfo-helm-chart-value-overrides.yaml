@@ -9,4 +9,4 @@ data:
     ingress:
       enabled: true
       hosts:
-        - host: localtest.me
+        - localtest.me
