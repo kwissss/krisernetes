@@ -8,3 +8,5 @@ data:
     kubeProxyReplacement: true
     ipam:
       mode: kubernetes
+    routingMode: tunnel
+    tunnelProtocol: vxlan
