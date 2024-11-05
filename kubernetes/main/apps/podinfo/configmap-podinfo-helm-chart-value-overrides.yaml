@@ -9,4 +9,7 @@ data:
     ingress:
       enabled: true
       hosts:
-        - localtest.me
+        - host: podinfo.localtest.me
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
