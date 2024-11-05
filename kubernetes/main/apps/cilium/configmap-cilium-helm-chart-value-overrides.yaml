@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cilium-helm-chart-value-overrides
-  namespace: cilium
+  namespace: kube-system
 data:
   values.yaml: |-
     kubeProxyReplacement: "strict"
