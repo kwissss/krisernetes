@@ -10,3 +10,16 @@ data:
       mode: kubernetes
     routingMode: tunnel
     tunnelProtocol: vxlan
+    rollOutCiliumPods: true
+    l2announcements:
+      enabled: true
+    envoy:
+      rollOutPods: true
+    operator:
+      rollOutPods: true
+    hubble:
+      relay:
+        rollOutPods: true
+      ui:
+        rollOutPods: true
+    
