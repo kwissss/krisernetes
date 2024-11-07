@@ -7,7 +7,7 @@ data:
   values.yaml: |-
     replicaCount: 3
     service:
-      type: loadbalancer
+      type: LoadBalancer
     ingress:
       enabled: true
       hosts:
