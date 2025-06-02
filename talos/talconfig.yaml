@@ -27,6 +27,12 @@ nodes:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/4b3cd373a192c8469e859b7a0cfbed3ecc3577c4a2d346a37b0aeff9cd17cdb0
     controlPlane: true
+    userVolumes:
+      - name: local-hostpath
+        provisioning:
+          diskSelector:
+            match: disk.serial == "S4J4NX0R819227P"
+          maxSize: 2TB
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "54:b2:03:19:c7:43"
@@ -53,4 +59,3 @@ controlPlane:
   patches:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
-
