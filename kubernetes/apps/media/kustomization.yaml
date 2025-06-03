@@ -10,3 +10,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
+  - ./radarr-hd/ks.yaml
