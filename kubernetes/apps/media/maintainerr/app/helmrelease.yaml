@@ -35,7 +35,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false # true causes __PATH_PREFIX__ to be in the url
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
