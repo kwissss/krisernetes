@@ -8,3 +8,4 @@ components:
 resources:
   - ./plex/ks.yaml
   - ./tautulli/ks.yaml
+  - ./qbittorrent/ks.yaml
