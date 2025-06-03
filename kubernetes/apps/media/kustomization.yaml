@@ -15,3 +15,4 @@ resources:
   - ./sonarr-hd/ks.yaml
   - ./sonarr-uhd/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./autobrr/ks.yaml
