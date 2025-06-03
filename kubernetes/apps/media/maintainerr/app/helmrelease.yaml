@@ -71,6 +71,10 @@ spec:
         existingClaim: maintainerr
         globalMounts:
           - path: /opt/data
+      config-cache:
+        existingClaim: maintainerr-cache
+        globalMounts:
+          - path: /opt/app/ui/.next/cache
       tmpfs:
         type: emptyDir
         advancedMounts:
