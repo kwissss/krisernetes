@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fallenbagel/jellyseerr
-              tag: preview-typeorm-fix@sha256:eb91d39153162487f2875eaabca31e8d5ec995131f02b8ec1ee0e8bfc51b0843
+              tag: preview-typeorm-fix@sha256:bb1180292cc5e0e3f69bb26e90db7a69d75afb9b73f9b0b552b3716c6dbac0e5
             env:
               TZ: Europe/Oslo
               LOG_LEVEL: "info"
