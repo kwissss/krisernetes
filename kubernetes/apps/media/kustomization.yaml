@@ -18,3 +18,4 @@ resources:
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./cross-seed/ks.yaml
+  - ./maintainerr/ks.yaml
