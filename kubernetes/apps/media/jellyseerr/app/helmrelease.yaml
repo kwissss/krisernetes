@@ -24,7 +24,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/fallenbagel/jellyseerr
+              repository: docker.io/fallenbagel/jellyseerr
               tag: preview-typeorm-fix@sha256:bb1180292cc5e0e3f69bb26e90db7a69d75afb9b73f9b0b552b3716c6dbac0e5
             env:
               TZ: Europe/Oslo
