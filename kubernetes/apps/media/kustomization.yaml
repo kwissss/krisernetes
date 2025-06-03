@@ -17,3 +17,4 @@ resources:
   - ./jellyseerr/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./cross-seed/ks.yaml
