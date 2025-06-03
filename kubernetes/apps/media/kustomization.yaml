@@ -11,3 +11,4 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr-hd/ks.yaml
+  - ./radarr-uhd/ks.yaml
