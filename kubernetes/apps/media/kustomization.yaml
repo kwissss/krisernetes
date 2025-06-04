@@ -21,3 +21,4 @@ resources:
   - ./maintainerr/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./readarr/ks.yaml
+  - ./readarr-ab/ks.yaml
