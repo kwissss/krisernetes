@@ -37,7 +37,7 @@ spec:
       params:
         - name: nas
           auth: [public_v2]
-          module: [synology, ucd_la_table]
+          module: [if_mib, synology, ucd_la_table]
           target: 192.168.0.3
       relabelings:
         - sourceLabels: [__param_target]
