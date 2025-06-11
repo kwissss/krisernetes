@@ -5,4 +5,4 @@ kind: Component
 resources:
   - ./pvc.yaml
   - ./replicationdestination.yaml
-  - ./replicationsource.yaml
+  # - ./replicationsource.yaml
