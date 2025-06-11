@@ -18,6 +18,9 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/media/audiobookshelf/app
   postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
