@@ -65,7 +65,7 @@ spec:
               {{- end }}
               {{- if gt (len .Labels.SortedPairs) 0 }}
                   {{- range .Labels.SortedPairs }}
-                    -# **{{ .Name }}:** {{ .Value }}
+                    **{{ .Name }}:** {{ .Value }}
                   {{- end }}
               {{- end }}
             {{- end }}
