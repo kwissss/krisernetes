@@ -7,7 +7,7 @@ metadata:
 spec:
   sourcePVC: "${APP}"
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 6 * * *"
   restic:
     accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
@@ -22,6 +22,8 @@ spec:
     repository: "${APP}-volsync-secret"
     retain:
       hourly: 24
-      daily: 7
+      daily: 14
+      monthly: 1
+      yearly: 6
     storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn-snapshot}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn}"
