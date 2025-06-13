@@ -29,7 +29,7 @@ spec:
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: true
               GENERIC_TIMEZONE: Europe/Oslo
-              N8N_EDITOR_BASE_URL: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
               N8N_VERSION_NOTIFICATIONS_ENABLED: false
               N8N_HIRING_BANNER_ENABLED: false
