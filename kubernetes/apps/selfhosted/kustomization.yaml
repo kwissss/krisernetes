@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: selfhosted
 components:
   - ../../components/common
-# resources:
-  # - ./n8n/ks.yaml
+resources:
+  - ./n8n/ks.yaml

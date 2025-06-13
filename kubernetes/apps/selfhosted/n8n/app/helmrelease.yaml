@@ -25,32 +25,31 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 2.15.2@sha256:4e7d75c9fe8f96ae766269fb451fc5ad215451b30a463c11142c492512c021cd
+              tag: 1.94.1@sha256:0503582053287cdde054f1fc6b67baea147bdaeba6fd69a687fe2f5149ef8c80
             env:
-              TZ: Europe/Oslo
-              n8n__PORT: &port 80
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /status
-                    port: *port
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              DB_SQLITE_VACUUM_ON_STARTUP: true
+              GENERIC_TIMEZONE: Europe/Oslo
+              N8N_EDITOR_BASE_URL: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              N8N_VERSION_NOTIFICATIONS_ENABLED: false
+              N8N_HIRING_BANNER_ENABLED: false
+              N8N_METRICS: true
+              N8N_LOG_FORMAT: json
+              N8N_PORT: &port 80
+              N8N_ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: n8n-secret
+                    key: N8N_ENCRYPTION_KEY
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
+                memory: 128Mi
               limits:
-                memory: 1Gi
+                memory: 2Gi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -60,7 +59,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: n8n
         ports:
           http:
             port: *port
@@ -68,26 +66,24 @@ spec:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
         parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+      api:
+        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        parentRefs:
           - name: internal
             namespace: kube-system
             sectionName: https
         rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
+          - matches:
+              - path:
+                  value: /api
+            backendRefs: [{}]
     persistence:
-      config:
+      data:
         existingClaim: n8n
-      config-cache:
-        existingClaim: n8n-cache
-        globalMounts:
-          - path: /config/cache
-      tmpfs:
-        type: emptyDir
         advancedMounts:
           n8n:
             app:
-              - path: /config/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
+              - path: /home/node/.n8n
