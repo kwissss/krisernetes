@@ -91,4 +91,4 @@ spec:
       cache:
         type: emptyDir
         globalMounts:
-          - path: /config/.cache
+          - path: /home/node/.cache
