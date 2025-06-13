@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 1.94.1@sha256:0503582053287cdde054f1fc6b67baea147bdaeba6fd69a687fe2f5149ef8c80
+              tag: 1.98.1@sha256:1d35d503d0ec6586d55ab7d0eb34d9bafdf9a908e3c5127020ad851ad3b0e629
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: true
               GENERIC_TIMEZONE: Europe/Oslo
