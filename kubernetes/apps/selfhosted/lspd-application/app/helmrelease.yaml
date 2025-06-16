@@ -52,3 +52,11 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          lspd-application:
+            app:
+              - path: /tmp
+                subPath: tmp
