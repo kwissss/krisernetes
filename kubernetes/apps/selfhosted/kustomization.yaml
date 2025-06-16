@@ -7,5 +7,6 @@ components:
   - ../../components/common
 resources:
   - ./krisbot/ks.yaml
+  - ./lspd-application/ks.yaml
   - ./lssd-image-uploader/ks.yaml
   - ./n8n/ks.yaml
