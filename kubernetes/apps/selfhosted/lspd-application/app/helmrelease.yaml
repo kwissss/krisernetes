@@ -51,7 +51,7 @@ spec:
         parentRefs:
           - name: external
             namespace: kube-system
-            sectionName: https
+            sectionName: https-2
     persistence:
       tmpfs:
         type: emptyDir
