@@ -1,12 +1,13 @@
 ---
-originRequest:
-  originServerName: "external.${SECRET_DOMAIN}"
-
 ingress:
   - hostname: "${SECRET_DOMAIN}"
     service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
+    originRequest:
+      originServerName: "external.${SECRET_DOMAIN}"
   - hostname: "*.${SECRET_DOMAIN}"
     service: *svc
+    originRequest:
+      originServerName: "external.${SECRET_DOMAIN}"
   - hostname: "${SECRET_DOMAIN_2}"
     service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
     originRequest:
