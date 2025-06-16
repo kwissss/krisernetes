@@ -4,6 +4,7 @@
     "config:recommended",
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
+    "github>kwissss/krisernetes//.renovate/grafanaDashboards.json5",
     ":automergeBranch",
     ":dependencyDashboard",
     ":disableRateLimiting",
