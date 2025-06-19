@@ -37,9 +37,9 @@ spec:
               UN_SONARR_1_URL: http://sonarr-uhd.media.svc.cluster.local
               UN_SONARR_1_PATHS_0: /mnt/local/downloads/torrents/qbittorrent/completed/tv-uhd
               UN_RADARR_0_URL: http://radarr-hd.media.svc.cluster.local
-              UN_RADARR_0_PATHS_0: /media/Downloads/qbittorrent/complete/movies
+              UN_RADARR_0_PATHS_0: /mnt/local/downloads/torrents/qbittorrent/completed/movies
               UN_RADARR_1_URL: http://radarr-uhd.media.svc.cluster.local
-              UN_RADARR_1_PATHS_0: /media/Downloads/qbittorrent/complete/movies-uhd
+              UN_RADARR_1_PATHS_0: /mnt/local/downloads/torrents/qbittorrent/completed/moviesuhd
             envFrom:
               - secretRef:
                   name: unpackerr-secret
