@@ -21,16 +21,6 @@ spec:
       mining-cult:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          file-setup:
-            image:
-              repository: busybox
-              tag: latest
-              pullPolicy: IfNotPresent
-            command:
-              - sh
-              - -c
-              - touch /cache/.itemsBackup.json
         containers:
           app:
             image:
@@ -71,12 +61,6 @@ spec:
                 subPath: messages.json
       cache:
         type: emptyDir
-        advancedMounts:
-          mining-cult:
-            file-setup:
-              - path: /cache
-            app:
-              - path: /usr/src/app/logs
-                subPath: logs
-              - path: /usr/src/app/node_modules/skyhelper-networth/.itemsBackup.json
-                subPath: .itemsBackup.json
+        globalMounts:
+          - path: /usr/src/app/logs
+            subPath: logs
