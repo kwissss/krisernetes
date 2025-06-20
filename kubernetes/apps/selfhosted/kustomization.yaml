@@ -9,4 +9,5 @@ resources:
   - ./krisbot/ks.yaml
   - ./lspd-application/ks.yaml
   - ./lssd-image-uploader/ks.yaml
+  - ./mining-cult/ks.yaml
   - ./n8n/ks.yaml
