@@ -57,3 +57,7 @@ spec:
               - path: /usr/src/app/data
               - path: /usr/src/app/messages.json
                 subPath: messages.json
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /usr/src/app/logs
