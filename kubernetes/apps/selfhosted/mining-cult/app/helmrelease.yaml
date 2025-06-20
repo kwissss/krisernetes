@@ -21,6 +21,16 @@ spec:
       mining-cult:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          file-setup:
+            image:
+              repository: busybox
+              tag: latest
+              pullPolicy: IfNotPresent
+            command:
+              - sh
+              - -c
+              - touch /cache/.itemsBackup.json
         containers:
           app:
             image:
