@@ -52,9 +52,11 @@ spec:
           mining-cult:
             app:
               - path: /usr/src/app/auth-cache
+                subPath: auth-cache/
               - path: /usr/src/app/config.json
                 subPath: config.json
               - path: /usr/src/app/data
+                subPath: data/
               - path: /usr/src/app/messages.json
                 subPath: messages.json
       cache:
