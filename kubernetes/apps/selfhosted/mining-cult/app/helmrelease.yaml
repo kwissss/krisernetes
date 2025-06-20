@@ -64,3 +64,5 @@ spec:
         globalMounts:
           - path: /usr/src/app/logs
             subPath: logs
+          - path: /usr/src/app/node_modules/skyhelper-networth/.itemsBackup.json
+            subPath: .itemsBackup.json
