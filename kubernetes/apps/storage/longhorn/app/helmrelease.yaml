@@ -34,6 +34,7 @@ spec:
     defaultSettings:
       defaultReplicaCount: 1
       defaultDataPath: /var/mnt/local-hostpath
+      nodeDrainPolicy: allow-if-replica-is-stopped
     persistence:
       reclaimPolicy: Delete
       defaultClassReplicaCount: 1
