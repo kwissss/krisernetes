@@ -11,3 +11,4 @@ resources:
   - ./lssd-image-uploader/ks.yaml
   - ./mining-cult/ks.yaml
   - ./n8n/ks.yaml
+  - ./thelounge/ks.yaml
