@@ -47,7 +47,9 @@ spec:
             port: 8080
     route:
       app:
-        hostnames: ["application.${SECRET_DOMAIN_2}"]
+        hostnames:
+          - "application.${SECRET_DOMAIN_2}"
+          - "portal.${SECRET_DOMAIN_2}"
         parentRefs:
           - name: external
             namespace: kube-system
