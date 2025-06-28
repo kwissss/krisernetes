@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/spiizor/lspdapplication
-              tag: main@sha256:a3d5e37d9132a9e9a657e916d4fbd7ac4ce541a08f8e215284d87a516cbb24d8
+              tag: main@sha256:c38ac9385585cc48b4258d755ad5d3fedfb4da9016caf5b20f4c266476c70240
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
