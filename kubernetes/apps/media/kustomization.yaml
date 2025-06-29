@@ -12,6 +12,7 @@ resources:
   - ./cross-seed/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./maintainerr/ks.yaml
+  - ./notifiarr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
