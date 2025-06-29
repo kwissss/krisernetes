@@ -50,6 +50,7 @@ spec:
               limits:
                 memory: 256Mi
     defaultPodOptions:
+      hostname: notifiarr
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
