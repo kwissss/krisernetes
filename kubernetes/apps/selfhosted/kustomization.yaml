@@ -12,3 +12,4 @@ resources:
   - ./mining-cult/ks.yaml
   - ./n8n/ks.yaml
   - ./thelounge/ks.yaml
+  - ./wg-easy/ks.yaml
