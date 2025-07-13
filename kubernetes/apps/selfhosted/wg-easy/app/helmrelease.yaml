@@ -32,8 +32,11 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                - drop: ["ALL"]
-                - add: ["NET_ADMIN, SYS_MODULE"]
+                drop:
+                  - ALL
+                add:
+                  - NET_ADMIN
+                  - SYS_MODULE
             probes:
               liveness:
                 enabled: true
