@@ -25,7 +25,10 @@ spec:
           app:
             image:
               repository: ghcr.io/spiizor/lspdapplication
-              tag: main@sha256:5f140099c079d7f25f3adcb010e66fc32e0f3cfd0219b6ef8e68c7094e87179e
+              tag: main@sha256:eb2d2faffe42fa218780f8b8257f9fbbc86e66e24ab2ec4a182a7cd27bf21dc6
+            envFrom:
+              - secretRef:
+                  name: lspd-application-secret
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -44,7 +47,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: 3000
     route:
       app:
         hostnames:
