@@ -80,9 +80,9 @@ spec:
               - identifier: app
                 port: *port
     persistence:
-      data:
+      config:
         existingClaim: wg-easy
-        advancedMounts:
-          wg-easy:
-            app:
-              - path: /etc/wireguard
+        globalMounts:
+          - path: /etc/wireguard
+      run:
+        type: emptyDir
