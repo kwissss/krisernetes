@@ -43,8 +43,8 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: false
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
     service:
       app:
         type: LoadBalancer
