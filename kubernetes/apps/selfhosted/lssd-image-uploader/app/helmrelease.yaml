@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fatherosborn/discord-imgur-bot
-              tag: main@sha256:0999ca4ab9b906abc9adaa174c784067436df5274a1358b61e145a310681da46
+              tag: main@sha256:bb35225c962b70a6fc74b52c7d20a77a2eea3fb231b5154d801d2527e157f395
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
