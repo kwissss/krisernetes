@@ -28,8 +28,6 @@ nodes:
     talosImageURL: factory.talos.dev/installer/249d9135de54962744e917cfe654117000cba369f9152fbab9d055a00aa3664f
     schematic:
       customization:
-        extraKernelArgs:
-          - i915.enable_guc=3 # Kaby Lake
         systemExtensions:
           officialExtensions:
             - siderolabs/i915
@@ -65,6 +63,23 @@ patches:
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
   - "@./patches/global/machine-udev.yaml"
+  - |-
+    machine:
+      install:
+        extraKernelArgs:
+          - -init_on_alloc          # Less security, faster puter
+          - -init_on_free           # Less security, faster puter
+          - -selinux                # Less security, faster puter
+          - apparmor=0              # Less security, faster puter
+          - i915.enable_guc=3       # Kaby Lake CPU / iGPU
+          - init_on_alloc=0         # Less security, faster puter
+          - init_on_free=0          # Less security, faster puter
+          - intel_iommu=on          # PCI Passthrough
+          - iommu=pt                # PCI Passthrough
+          - pcie_aspm=off           # Disable PCIe ASPM
+          - mitigations=off         # Less security, faster puter
+          - security=none           # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
 
 # Controller patches
 controlPlane:
