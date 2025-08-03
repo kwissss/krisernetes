@@ -48,7 +48,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 50Mi
     defaultPodOptions:
       hostname: notifiarr-talos
       securityContext:
