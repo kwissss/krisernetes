@@ -36,10 +36,9 @@ spec:
               - secretRef:
                   name: notifiarr-secret
             probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
+              liveness: &probes
+                enabled: false
+              readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
