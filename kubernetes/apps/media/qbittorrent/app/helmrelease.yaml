@@ -94,9 +94,9 @@ spec:
         existingClaim: qbittorrent
         globalMounts:
           - path: /config
-            subPath: qBittorrent
+            subPath: config
           - path: /data
-            subPath: qBittorrent
+            subPath: data
       media:
         type: nfs
         server: 192.168.0.3
