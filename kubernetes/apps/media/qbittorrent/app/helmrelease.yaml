@@ -92,9 +92,9 @@ spec:
       config:
         existingClaim: qbittorrent
         globalMounts:
-          - path: /config
+          - path: /config/config
             subPath: config
-          - path: /data
+          - path: /config/data
             subPath: data
       media:
         type: nfs
