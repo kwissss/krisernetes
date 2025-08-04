@@ -51,7 +51,7 @@ spec:
                   periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -93,10 +93,10 @@ spec:
       config:
         existingClaim: qbittorrent
         globalMounts:
-          - path: qBittorrent
-            subPath: config
-          - path: qBittorrent
-            subPath: data
+          - path: /config
+            subPath: qBittorrent
+          - path: /data
+            subPath: qBittorrent
       media:
         type: nfs
         server: 192.168.0.3
