@@ -67,10 +67,7 @@ spec:
                 port: *port
     persistence:
       config:
-        volumeName: daps
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        retain: true
+        existingClaim: daps
       media:
         type: nfs
         server: 192.168.0.3
