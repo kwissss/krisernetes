@@ -21,7 +21,6 @@ spec:
       qbittorrent:
         containers:
           app:
-            nameOverride: qbittorrent
             image:
               repository: ghcr.io/hotio/qbittorrent
               tag: release-5.1.2
@@ -62,7 +61,7 @@ spec:
         runAsNonRoot: false
     service:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         primary: true
         ports:
           http:
@@ -84,6 +83,10 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
