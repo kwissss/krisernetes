@@ -84,4 +84,4 @@ spec:
               - path: /tmp
                 subPath: tmp
               - path: /etc/group
-                subpath: etc
+                subPath: etc
