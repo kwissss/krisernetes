@@ -30,7 +30,7 @@ spec:
               TZ: Europe/Oslo
             probes:
               liveness: &probes
-                enabled: true
+                enabled: false
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
