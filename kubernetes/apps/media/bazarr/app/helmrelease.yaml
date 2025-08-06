@@ -60,7 +60,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: bazarr
         ports:
           http:
             port: *port
@@ -71,13 +70,9 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: bazarr
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: 192.168.0.3

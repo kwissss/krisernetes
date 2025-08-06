@@ -34,7 +34,7 @@ spec:
               DN_RADARR_1_URL: http://radarr-uhd.media.svc.cluster.local
             envFrom:
               - secretRef:
-                  name: notifiarr-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: false

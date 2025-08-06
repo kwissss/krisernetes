@@ -82,7 +82,7 @@ spec:
             backendRefs: [{}]
     persistence:
       data:
-        existingClaim: n8n
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           n8n:
             app:

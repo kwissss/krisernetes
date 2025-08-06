@@ -68,7 +68,6 @@ spec:
         supplementalGroups: [44]
     service:
       app:
-        controller: plex
         type: LoadBalancer
         annotations:
           lbipam.cilium.io/ips: 192.168.0.14
@@ -99,9 +98,9 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: plex
+        existingClaim: "{{ .Release.Name }}"
       config-cache:
-        existingClaim: plex-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Cache
       media:

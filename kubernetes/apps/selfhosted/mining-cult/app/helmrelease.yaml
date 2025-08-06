@@ -47,7 +47,7 @@ spec:
         fsGroupChangePolicy: Always
     persistence:
       config:
-        existingClaim: mining-cult
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           mining-cult:
             app:

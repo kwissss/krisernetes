@@ -42,7 +42,7 @@ spec:
               UN_RADARR_1_PATHS_0: /mnt/local/downloads/torrents/qbittorrent/completed/movies-uhd
             envFrom:
               - secretRef:
-                  name: unpackerr-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -66,7 +66,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: unpackerr
         ports:
           http:
             port: 80

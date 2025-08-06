@@ -75,13 +75,9 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: wg-easy
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /etc/wireguard
       run:

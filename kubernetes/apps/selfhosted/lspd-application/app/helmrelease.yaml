@@ -28,7 +28,7 @@ spec:
               tag: main@sha256:4ca39a0579e57af46bd32504365ccd696f114822f4e79588ea6335d15a9dd843
             envFrom:
               - secretRef:
-                  name: lspd-application-secret
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
