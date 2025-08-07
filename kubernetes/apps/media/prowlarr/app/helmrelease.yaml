@@ -66,7 +66,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: prowlarr
         ports:
           http:
             port: *port
@@ -77,12 +76,8 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: prowlarr
+        existingClaim: "{{ .Release.Name }}"
       tmp:
         type: emptyDir

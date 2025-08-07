@@ -21,7 +21,6 @@ spec:
       qbittorrent:
         containers:
           app:
-            nameOverride: qbittorrent
             image:
               repository: ghcr.io/hotio/qbittorrent
               tag: release-5.1.2
@@ -62,7 +61,7 @@ spec:
         runAsNonRoot: false
     service:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         primary: true
         ports:
           http:
@@ -90,7 +89,7 @@ spec:
                 port: *port
     persistence:
       config:
-        existingClaim: qbittorrent
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: 192.168.0.3

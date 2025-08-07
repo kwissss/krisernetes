@@ -51,7 +51,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: maintainerr
         ports:
           http:
             port: *port
@@ -62,17 +61,13 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: maintainerr
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
       config-cache:
-        existingClaim: maintainerr-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /opt/app/ui/.next/cache
       tmpfs:

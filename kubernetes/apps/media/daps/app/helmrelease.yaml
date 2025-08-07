@@ -51,10 +51,9 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: daps
         ports:
           http:
-            port: &port 8000
+            port: 8000
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
@@ -62,13 +61,9 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     persistence:
       config:
-        existingClaim: daps
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: 192.168.0.3
