@@ -64,6 +64,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      posters:
+        existingClaim: "{{ .Release.Name }}-cache"
       media:
         type: nfs
         server: 192.168.0.3
