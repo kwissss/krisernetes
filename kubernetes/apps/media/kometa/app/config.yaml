@@ -1,0 +1,38 @@
+---
+libraries:
+  Movies: &libraryConfig
+    collection_files:
+      - default: basic
+      - default: imdb
+    operations:
+      assets_for_all: true
+  4K Movies: *libraryConfig
+  TV Shows: *libraryConfig
+  4K TV Shows: *libraryConfig
+
+settings:
+  asset_directory: /mnt/local/Media/Assets
+  asset_folders: false
+  create_asset_folders: false
+  download_url_assets: false
+  show_missing_season_assets: false
+  show_missing_episode_assets: false
+  sync_mode: sync
+  delete_below_minimum: true
+  show_unmanaged: false
+  show_missing: false
+  show_missing_assets: false
+  save_report: false
+  tvdb_language: eng
+  playlist_sync_to_user: all
+
+plex:
+  url: http://plex.media.svc.cluster.local:32400
+  token: <<PLEX_API_KEY>>
+
+tautulli:
+  url: http://tautulli.media.svc.cluster.local
+  apikey: <<TAUTULLI_API_KEY>>
+
+tmdb:
+  apikey: <<TMDB_API_KEY>>
