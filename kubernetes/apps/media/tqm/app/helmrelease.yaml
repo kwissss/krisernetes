@@ -91,4 +91,6 @@ spec:
         server: 192.168.0.3
         path: /volume1/data
         globalMounts:
-          - path: /mnt/local
+          - path: /mnt/local/downloads/torrents/qbittorrent
+            subPath: downloads/torrents/qbittorrent
+            readOnly: true
