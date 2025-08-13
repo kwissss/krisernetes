@@ -22,14 +22,14 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/qbittorrent
-              tag: release-5.1.2
+              repository: ghcr.io/linuxserver/qbittorrent
+              tag: libtorrentv1-release-5.1.2_v1.2.20-ls88@sha256:8f28af793d8daf381fb8b99ff2479a73219dd8d72645471cf67139a5ca507151
             env:
               PUID: 1000
               PGID: 1000
               TZ: Europe/Oslo
-              QBT_TORRENTING_PORT: &torrentPort 50413
-              QBT_WEBUI_PORT: &port 8080
+              TORRENTING_PORT: &torrentPort 50413
+              WEBUI_PORT: &port 8080
             probes:
               liveness: &probes
                 enabled: false
@@ -49,16 +49,20 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
-              allowPrivilegeEscalation: true
-              readOnlyRootFilesystem: false
+              allowPrivilegeEscalation: true # s6
+              readOnlyRootFilesystem: true
             resources:
               requests:
                 cpu: 100m
               limits:
-                memory: 10Gi
+                memory: 8Gi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         forceRename: "{{ .Release.Name }}"
@@ -96,5 +100,10 @@ spec:
         path: /volume1/data
         globalMounts:
           - path: /mnt/local
-      tmp:
+      tmpfs:
         type: emptyDir
+        globalMounts:
+          - path: /run
+            subPath: run
+          - path: /tmp
+            subPath: tmp
