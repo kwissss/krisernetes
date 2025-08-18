@@ -35,7 +35,7 @@ spec:
                 cpu: 5m
                 memory: 15Mi
               limits:
-                memory: 368Mi
+                memory: 400Mi
     defaultPodOptions:
       imagePullSecrets:
         - name: ghcr-auth-secret
