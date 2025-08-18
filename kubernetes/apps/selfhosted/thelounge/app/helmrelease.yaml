@@ -53,7 +53,7 @@ spec:
       app:
         ports:
           http:
-            port: 9000
+            port: 80
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
