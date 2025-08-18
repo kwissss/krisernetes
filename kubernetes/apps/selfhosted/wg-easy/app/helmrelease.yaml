@@ -34,7 +34,8 @@ spec:
               capabilities:
                 add:
                   - NET_ADMIN
-                  - SYS_MODULE
+                  - NET_RAW
+                  - NET_BIND_SERVICE
                 drop:
                   - ALL
             probes:
@@ -49,9 +50,9 @@ spec:
                 memory: 200Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
