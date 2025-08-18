@@ -34,8 +34,7 @@ spec:
               capabilities:
                 add:
                   - NET_ADMIN
-                  - NET_BIND_SERVICE
-                  - NET_RAW
+                  - SYS_MODULE
                 drop:
                   - ALL
             probes:
@@ -50,9 +49,11 @@ spec:
                 memory: 200Mi
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-        runAsGroup: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         forceRename: "{{ .Release.Name }}"
