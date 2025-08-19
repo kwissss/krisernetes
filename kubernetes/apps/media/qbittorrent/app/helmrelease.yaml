@@ -63,6 +63,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      terminationGracePeriodSeconds: 120
     service:
       app:
         forceRename: "{{ .Release.Name }}"
