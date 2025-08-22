@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kwissss/krisbot
-              tag: main@sha256:fe0d703a1e77df0dcb4b374075e6acb39d320afc490b34a1bcdeede422960a82
+              tag: main@sha256:61f873698fa07f0ae57b571528ef25c664451cf93772e05159ca74394755e3af
             env:
               DISCORD_TOKEN:
                 valueFrom:
