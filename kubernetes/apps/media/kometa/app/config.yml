@@ -6,7 +6,7 @@ libraries:
       - default: imdb
     operations:
       assets_for_all: true
-  TV Shows: *libraryConfig
+  TV: *libraryConfig
 
 settings:
   asset_directory: /mnt/local/Media/Assets
