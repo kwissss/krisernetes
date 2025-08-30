@@ -13,6 +13,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: longhorn
+      namespace: storage
   interval: 1h
   path: ./kubernetes/apps/media/daps/app
   postBuild:

@@ -15,6 +15,11 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: longhorn
+      namespace: storage
   interval: 1h
   path: ./kubernetes/apps/media/plex/app
   postBuild:
