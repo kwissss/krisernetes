@@ -25,6 +25,7 @@ nodes:
       serial: "S4EVNF0M454702F"
     machineSpec:
       secureboot: false
+    talosImageURL: factory.talos.dev/installer/bd28b5ed4b5895ad935cb0e23723ed1e2d2f3fd559eec9f25cdfea3d145e8a9e
     schematic:
       customization:
         extraKernelArgs:
