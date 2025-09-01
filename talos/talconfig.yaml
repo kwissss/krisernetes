@@ -48,7 +48,6 @@ nodes:
             - siderolabs/intel-ucode # Intel iGPU
             - siderolabs/iscsi-tools # Longhorn
             - siderolabs/mei # Intel iGPU
-            - siderolabs/nfsrahead # NFS Performance
             - siderolabs/util-linux-tools # Longhorn
     controlPlane: true
     userVolumes:
