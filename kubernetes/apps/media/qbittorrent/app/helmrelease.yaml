@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app qbittorrent
+  name: qbittorrent
 spec:
   interval: 1h
   chartRef:
@@ -19,6 +19,8 @@ spec:
   values:
     controllers:
       qbittorrent:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -29,7 +31,7 @@ spec:
               PGID: 1000
               TZ: Europe/Oslo
               TORRENTING_PORT: &torrentPort 50413
-              WEBUI_PORT: &port 8080
+              WEBUI_PORT: &port 80
             probes:
               liveness: &probes
                 enabled: false
@@ -63,7 +65,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      terminationGracePeriodSeconds: 120
+      terminationGracePeriodSeconds: 300
     service:
       app:
         forceRename: "{{ .Release.Name }}"
@@ -74,7 +76,7 @@ spec:
       bittorrent:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 192.168.0.249, ::ffff:192.168.0.249
+          lbipam.cilium.io/ips: 192.168.0.249
         ports:
           bittorrent-tcp:
             port: *torrentPort
@@ -92,15 +94,30 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+    configMaps:
+      config:
+        data:
+          .qbt.toml: |-
+            [qbittorrent]
+            addr = "http://localhost:80"
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      config-file:
+        type: configMap
+        name: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /config/.qbt.toml
+            subPath: .qbt.toml
       media:
         type: nfs
         server: 192.168.0.3
         path: /volume1/data
         globalMounts:
           - path: /mnt/local
+      qbrr:
+        type: image
+        image: ghcr.io/buroa/qbrr:0.1.1@sha256:fe4a1d100ba896999253a5122d9c77cc4920779d618c23f765458cb6ec7383ca
       tmpfs:
         type: emptyDir
         globalMounts:
