@@ -32,7 +32,7 @@ spec:
       retries: 3
   values:
     defaultSettings:
-      defaultReplicaCount: 1
+      defaultReplicaCount: "1"
       defaultDataPath: /var/mnt/local-hostpath
       nodeDrainPolicy: allow-if-replica-is-stopped
     persistence:
