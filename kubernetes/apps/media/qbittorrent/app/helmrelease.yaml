@@ -32,6 +32,7 @@ spec:
               TZ: Europe/Oslo
               TORRENTING_PORT: &torrentPort 50413
               WEBUI_PORT: &port 80
+              QBT_WEBUI_PORT: *port
             probes:
               liveness: &probes
                 enabled: false
