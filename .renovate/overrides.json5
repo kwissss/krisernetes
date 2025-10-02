@@ -1,0 +1,11 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      description: "Override generic-device-plugin versioning",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/generic-device-plugin/"],
+      versioning: "loose",
+    },
+  ],
+}
