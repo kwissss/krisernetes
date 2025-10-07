@@ -75,6 +75,7 @@ spec:
               namespace: kube-system
               sectionName: https
       prometheusSpec:
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
