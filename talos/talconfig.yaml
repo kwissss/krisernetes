@@ -5,10 +5,10 @@ clusterName: kubernetes
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 
-endpoint: https://192.168.0.10:6443
+endpoint: https://192.168.20.10:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
-  - "192.168.0.10"
+  - "192.168.20.10"
 additionalMachineCertSans: *sans
 
 clusterPodNets: ["10.42.0.0/16"]
@@ -20,7 +20,7 @@ cniConfig:
 
 nodes:
   - hostname: "talos-01"
-    ipAddress: "192.168.0.20"
+    ipAddress: "192.168.20.20"
     installDiskSelector:
       serial: "S4EVNF0M454702F"
     machineSpec:
@@ -62,13 +62,13 @@ nodes:
           hardwareAddr: "54:b2:03:19:c7:43"
         dhcp: false
         addresses:
-          - "192.168.0.20/24"
+          - "192.168.20.20/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.0.1"
+            gateway: "192.168.20.1"
         mtu: 1500
         vip:
-          ip: "192.168.0.10"
+          ip: "192.168.20.10"
 
 # Global patches
 patches:
@@ -82,5 +82,4 @@ patches:
 # Controller patches
 controlPlane:
   patches:
-    - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"

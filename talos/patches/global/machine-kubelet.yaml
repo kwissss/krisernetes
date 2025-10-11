@@ -7,4 +7,4 @@ machine:
         ImageVolume: true
     nodeIP:
       validSubnets:
-        - 192.168.0.0/24
+        - 192.168.20.0/24
