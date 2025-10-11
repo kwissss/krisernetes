@@ -82,7 +82,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: 192.168.0.3
+        server: 192.168.20.3
         path: /volume1/data
         globalMounts:
           - path: /mnt/local
