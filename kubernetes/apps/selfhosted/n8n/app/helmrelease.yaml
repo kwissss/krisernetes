@@ -64,13 +64,15 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: external
             namespace: kube-system
             sectionName: https
       api:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: kube-system

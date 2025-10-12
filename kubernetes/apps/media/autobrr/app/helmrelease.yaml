@@ -86,7 +86,8 @@ spec:
           - port: metrics
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: kube-system

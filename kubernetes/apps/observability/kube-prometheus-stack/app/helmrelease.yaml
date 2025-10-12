@@ -36,7 +36,8 @@ spec:
       route:
         main:
           enabled: true
-          hostnames: ["alertmanager.${SECRET_DOMAIN}"]
+          hostnames:
+            - "alertmanager.${SECRET_DOMAIN}"
           parentRefs:
             - name: internal
               namespace: kube-system

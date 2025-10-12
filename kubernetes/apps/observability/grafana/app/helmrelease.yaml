@@ -172,13 +172,13 @@ spec:
           # renovate: depName="SMARTctl Exporter Dashboard"
           gnetId: 22604
           revision: 2
-          datasource: 
+          datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
         synology-snmp:
           # renovate: depName="Synology SNMP"
           gnetId: 18643
           revision: 1
-          datasource: 
+          datasource:
           - { name: DS_PROMETHEUS, value: Prometheus }
         volsync:
           # renovate: depName="VolSync Dashboard"
@@ -216,7 +216,8 @@ spec:
     route:
       main:
         enabled: true
-        hostnames: ["{{ .Release.Name }}.${SECRET_DOMAIN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
         parentRefs:
           - name: external
             namespace: kube-system

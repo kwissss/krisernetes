@@ -51,7 +51,6 @@ spec:
     route:
       app:
         hostnames:
-          - "application.${SECRET_DOMAIN_2}"
           - "portal.${SECRET_DOMAIN_2}"
         parentRefs:
           - name: external
