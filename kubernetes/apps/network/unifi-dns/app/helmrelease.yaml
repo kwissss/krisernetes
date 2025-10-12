@@ -65,7 +65,6 @@ spec:
     policy: sync
     sources:
       - gateway-httproute
-      - service
     txtOwnerId: main
     txtPrefix: k8s.main.
     domainFilters:
