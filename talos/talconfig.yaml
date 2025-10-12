@@ -1,23 +1,18 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 clusterName: kubernetes
-
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
-
 endpoint: https://192.168.20.10:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
   - "192.168.20.10"
 additionalMachineCertSans: *sans
-
 clusterPodNets: ["10.42.0.0/16"]
 clusterSvcNets: ["10.43.0.0/16"]
-
 # Disable built-in CNI to use Cilium
 cniConfig:
   name: none
-
 nodes:
   - hostname: "talos-01"
     ipAddress: "192.168.20.20"
@@ -58,14 +53,8 @@ nodes:
             match: disk.serial == "S4J4NX0R819227P"
           maxSize: 2TB
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "54:b2:03:19:c7:43"
-        dhcp: false
-        addresses:
-          - "192.168.20.20/24"
-        routes:
-          - network: "0.0.0.0/0"
-            gateway: "192.168.20.1"
+      - interface: eno1
+        dhcp: true
         mtu: 1500
         vip:
           ip: "192.168.20.10"
@@ -75,7 +64,6 @@ patches:
   - "@./patches/global/machine-files.yaml"
   - "@./patches/global/machine-kubelet.yaml"
   - "@./patches/global/machine-labels.yaml"
-  - "@./patches/global/machine-network.yaml"
   - "@./patches/global/machine-sysctls.yaml"
   - "@./patches/global/machine-time.yaml"
 
