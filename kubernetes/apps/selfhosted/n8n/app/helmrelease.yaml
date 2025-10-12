@@ -72,7 +72,7 @@ spec:
             sectionName: https
       api:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}-api.${SECRET_DOMAIN}"
         parentRefs:
           - name: internal
             namespace: kube-system
