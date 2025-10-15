@@ -67,6 +67,7 @@ spec:
     route:
       app:
         hostnames:
+          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - requests.${SECRET_DOMAIN}
         parentRefs:
           - name: external
