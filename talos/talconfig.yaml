@@ -10,6 +10,7 @@ additionalApiServerCertSans: &sans
 additionalMachineCertSans: *sans
 clusterPodNets: ["10.42.0.0/16"]
 clusterSvcNets: ["10.43.0.0/16"]
+
 # Disable built-in CNI to use Cilium
 cniConfig:
   name: none
@@ -61,13 +62,88 @@ nodes:
 
 # Global patches
 patches:
-  - "@./patches/global/machine-files.yaml"
-  - "@./patches/global/machine-kubelet.yaml"
-  - "@./patches/global/machine-labels.yaml"
-  - "@./patches/global/machine-sysctls.yaml"
-  - "@./patches/global/machine-time.yaml"
+  - |-
+    machine:
+      files:
+        - op: create
+          path: /etc/cri/conf.d/20-customization.part
+          content: |-
+            [plugins."io.containerd.cri.v1.images"]
+              discard_unpacked_layers = false
+            [plugins."io.containerd.cri.v1.runtime"]
+              device_ownership_from_security_context = true
+        - op: overwrite
+          path: /etc/nfsmount.conf
+          permissions: 0o644
+          content: |
+            [ NFSMount_Global_Options ]
+            nfsvers=4.1
+            hard=True
+            nconnect=16
+            noatime=True
+            rsize=1048576
+            wsize=1048576
+      kubelet:
+        defaultRuntimeSeccompProfileEnabled: true
+        extraConfig:
+          serializeImagePulls: false
+          featureGates:
+            ImageVolume: true
+        nodeIP:
+          validSubnets:
+            - 192.168.20.0/24
+      nodeLabels:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      sysctls:
+        fs.inotify.max_user_instances: "8192"      # Watchdog
+        fs.inotify.max_user_watches: "1048576"     # Watchdog
+        net.core.default_qdisc: fq                 # 10Gb/s
+        net.core.rmem_max: "7500000"               # Cloudflared | QUIC
+        net.core.wmem_max: "7500000"               # Cloudflared | QUIC
+        net.ipv4.neigh.default.gc_thresh1: "4096"  # Prevent ARP cache overflows
+        net.ipv4.neigh.default.gc_thresh2: "8192"  # Prevent ARP cache overflows
+        net.ipv4.neigh.default.gc_thresh3: "16384" # Prevent ARP cache overflows
+        net.ipv4.tcp_congestion_control: bbr       # 10Gb/s
+        net.ipv4.tcp_fastopen: "3"                 # Send and accept data in the opening SYN packet
+        net.ipv4.tcp_mtu_probing: "1"              # 10Gb/s | Jumbo frames
+        net.ipv4.tcp_rmem: 4096 87380 33554432     # 10Gb/s
+        net.ipv4.tcp_wmem: 4096 65536 33554432     # 10Gb/s
+        net.ipv4.tcp_window_scaling: "1"           # 10Gb/s
+        sunrpc.tcp_slot_table_entries: "128"       # 10Gb/s | NFS
+        sunrpc.tcp_max_slot_table_entries: "128"   # 10Gb/s | NFS
+        user.max_user_namespaces: "11255"          # User Namespaces
+      time:
+        disabled: false
+        servers:
+          - 162.159.200.1
+          - 162.159.200.123
 
 # Controller patches
 controlPlane:
   patches:
-    - "@./patches/controller/cluster.yaml"
+    - |-
+      cluster:
+        allowSchedulingOnControlPlanes: true
+        apiServer:
+          extraArgs:
+            # https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
+            enable-aggregator-routing: true
+            feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true,ResourceHealthStatus=true
+            runtime-config: admissionregistration.k8s.io/v1beta1=true
+          disablePodSecurityPolicy: true
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        coreDNS:
+          disabled: true
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - 192.168.20.0/24
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
