@@ -113,11 +113,6 @@ patches:
         sunrpc.tcp_slot_table_entries: "128"       # 10Gb/s | NFS
         sunrpc.tcp_max_slot_table_entries: "128"   # 10Gb/s | NFS
         user.max_user_namespaces: "11255"          # User Namespaces
-      time:
-        disabled: false
-        servers:
-          - 162.159.200.1
-          - 162.159.200.123
 
 # Controller patches
 controlPlane:
