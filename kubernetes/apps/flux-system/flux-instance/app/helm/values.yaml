@@ -12,12 +12,10 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: "https://github.com/kwissss/krisernetes.git"
-    ref: "refs/heads/main"
+    url: https://github.com/kwissss/krisernetes.git
+    ref: refs/heads/main
     path: kubernetes/flux/cluster
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: flux
+    interval: 1h
   kustomize:
     patches:
       - # Increase the number of workers
@@ -102,7 +100,7 @@ instance:
         patch: |-
           - op: add
             path: /spec/template/spec/containers/0/args/-
-            value: --sops-age-secret=sops-age
+            value: --sops-age-secret=sops-age-secret
         target:
           kind: Deployment
           name: kustomize-controller
