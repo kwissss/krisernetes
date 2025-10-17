@@ -86,9 +86,10 @@ patches:
       kubelet:
         defaultRuntimeSeccompProfileEnabled: true
         extraConfig:
-          serializeImagePulls: false
           featureGates:
             ImageVolume: true
+            ResourceHealthStatus: true
+          serializeImagePulls: false
         nodeIP:
           validSubnets:
             - 192.168.20.0/24
