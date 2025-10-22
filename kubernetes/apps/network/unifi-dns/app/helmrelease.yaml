@@ -19,18 +19,10 @@ kind: HelmRelease
 metadata:
   name: &app unifi-dns
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: unifi-dns
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
+  interval: 1h
   values:
     fullnameOverride: *app
     provider:
