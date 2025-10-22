@@ -13,7 +13,9 @@ spec:
       containers:
         - name: nfs
           image: docker.io/restic/restic:latest
-          args: ["unlock", "--remove-all"]
+          args:
+            - unlock
+            - --remove-all
           envFrom:
             - secretRef:
                 name: {{ ENV.APP }}-volsync-secret

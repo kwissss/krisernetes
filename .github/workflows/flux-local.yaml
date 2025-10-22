@@ -4,7 +4,8 @@ name: "Flux Local"
 
 on:
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -49,7 +50,9 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        resources: ["helmrelease", "kustomization"]
+        resources:
+          - helmrelease
+          - kustomization
       max-parallel: 4
       fail-fast: false
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
@@ -109,7 +112,9 @@ jobs:
 
   flux-local-status:
     name: Flux Local Success
-    needs: ["test", "diff"]
+    needs:
+      - test
+      - diff
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:

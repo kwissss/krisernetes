@@ -8,8 +8,10 @@ additionalApiServerCertSans: &sans
   - "127.0.0.1"
   - "192.168.20.10"
 additionalMachineCertSans: *sans
-clusterPodNets: ["10.42.0.0/16"]
-clusterSvcNets: ["10.43.0.0/16"]
+clusterPodNets:
+  - 10.42.0.0/16
+clusterSvcNets:
+  - 10.43.0.0/16
 
 # Disable built-in CNI to use Cilium
 cniConfig:
