@@ -6,6 +6,7 @@ namespace: selfhosted
 components:
   - ../../components/common
 resources:
+  - ./namespace.yaml
   - ./krisbot/ks.yaml
   - ./lspd-application/ks.yaml
   - ./lssd-image-uploader/ks.yaml
