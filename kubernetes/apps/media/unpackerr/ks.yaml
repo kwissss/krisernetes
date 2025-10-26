@@ -6,13 +6,6 @@ metadata:
   name: &app unpackerr
   namespace: &namespace media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/media/unpackerr/app
   postBuild:

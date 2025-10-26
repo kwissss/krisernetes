@@ -6,15 +6,8 @@ metadata:
   name: &app mining-cult
   namespace: &namespace selfhosted
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: longhorn
       namespace: storage

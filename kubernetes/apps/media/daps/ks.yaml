@@ -6,13 +6,6 @@ metadata:
   name: &app daps
   namespace: &namespace media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: longhorn
       namespace: storage

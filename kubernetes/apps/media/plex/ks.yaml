@@ -6,15 +6,8 @@ metadata:
   name: &app plex
   namespace: &namespace media
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   dependsOn:
     - name: intel-device-plugin-gpu
       namespace: kube-system

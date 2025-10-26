@@ -6,13 +6,6 @@ metadata:
   name: &app unifi-dns
   namespace: &namespace network
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
   interval: 1h
   path: ./kubernetes/apps/network/unifi-dns
   postBuild:
