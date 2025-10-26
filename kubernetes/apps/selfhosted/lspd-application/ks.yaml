@@ -4,7 +4,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app lspd-application
-  namespace: &namespace selfhosted
 spec:
   interval: 1h
   path: ./kubernetes/apps/selfhosted/lspd-application/app
@@ -20,6 +19,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: selfhosted
   timeout: 5m
   wait: false
