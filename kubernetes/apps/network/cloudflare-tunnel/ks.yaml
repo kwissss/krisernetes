@@ -6,6 +6,8 @@ metadata:
   name: cloudflare-tunnel
   namespace: &namespace network
 spec:
+  decryption:
+    provider: sops
   interval: 1h
   path: ./kubernetes/apps/network/cloudflare-tunnel
   postBuild:
