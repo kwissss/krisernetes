@@ -17,7 +17,7 @@ spec:
         - name: nas
           auth: [public_v2]
           module: [if_mib, synology, ucd_la_table]
-          target: 192.168.20.3
+          target: nas.internal
       relabelings:
         - sourceLabels: [__param_target]
           targetLabel: instance

@@ -11,7 +11,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - 192.168.20.3 # NAS
+        - nas.internal # NAS
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
 apiVersion: monitoring.coreos.com/v1
@@ -25,4 +25,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - 192.168.20.3:2049 # NAS
+        - nas.internal:2049 # NAS

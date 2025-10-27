@@ -76,7 +76,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: 192.168.20.3
+        server: nas.internal
         path: /volume1/data
         globalMounts:
           - path: /mnt/local
