@@ -14,7 +14,7 @@ spec:
     cacheAccessModes:
       - "${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=longhorn-cache}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=longhorn}"
     copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
@@ -27,5 +27,5 @@ spec:
       daily: 14
       monthly: 1
       yearly: 6
-    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn-snapshot}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:=longhorn}"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=longhorn}"
