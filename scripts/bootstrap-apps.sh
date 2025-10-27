@@ -60,7 +60,7 @@ function apply_sops_secrets() {
     local -r secrets=(
         "${ROOT_DIR}/bootstrap/github-deploy-key.sops.yaml"
         "${ROOT_DIR}/kubernetes/components/common/sops/cluster-secrets.sops.yaml"
-        "${ROOT_DIR}/kubernetes/apps/flux-system/flux-instance/sops-age.sops.yaml"
+        "${ROOT_DIR}/kubernetes/apps/flux-system/flux-instance/app/sops-age.sops.yaml"
     )
 
     for secret in "${secrets[@]}"; do
