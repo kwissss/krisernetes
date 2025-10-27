@@ -15,7 +15,7 @@ spec:
       defaultDataPath: /var/mnt/local-hostpath
       nodeDrainPolicy: allow-if-replica-is-stopped
     persistence:
-      reclaimPolicy: Delete
+      reclaimPolicy: Retain
       defaultClassReplicaCount: 1
     longhornUI:
       replicas: 1
