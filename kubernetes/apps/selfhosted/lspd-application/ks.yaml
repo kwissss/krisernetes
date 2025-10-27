@@ -3,22 +3,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app lspd-application
+  name: lspd-application
 spec:
   interval: 1h
   path: ./kubernetes/apps/selfhosted/lspd-application/app
   postBuild:
-    substitute:
-      APP: *app
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: selfhosted
-  timeout: 5m
   wait: false
