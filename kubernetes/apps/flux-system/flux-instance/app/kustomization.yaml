@@ -6,8 +6,9 @@ resources:
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./httproute.yaml
-  - ./podmonitor.yaml
-  - ./receiver.yaml
   - ./ocirepository.yaml
+  - ./podmonitor.yaml
+  - ./prometheusrule.yaml
+  - ./receiver.yaml
   - ./secret.sops.yaml
   - ./sops-age.sops.yaml

@@ -8,9 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: flux-instance
-  dependsOn:
-    - name: flux-operator
-      namespace: flux-system
   interval: 1h
   values:
     instance:
@@ -33,7 +30,7 @@ spec:
       kustomize:
         patches:
           - # Increase the number of workers
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --concurrent=10
@@ -44,7 +41,7 @@ spec:
               kind: Deployment
               name: (kustomize-controller|helm-controller|source-controller)
           - # Increase the memory limits
-            patch: |
+            patch: |-
               apiVersion: apps/v1
               kind: Deployment
               metadata:
@@ -56,12 +53,12 @@ spec:
                       - name: manager
                         resources:
                           limits:
-                            memory: 1Gi
+                            memory: 2Gi
             target:
               kind: Deployment
               name: (kustomize-controller|helm-controller|source-controller)
           - # Enable in-memory kustomize builds
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --concurrent=20
@@ -75,7 +72,7 @@ spec:
               kind: Deployment
               name: kustomize-controller
           - # Enable Helm repositories caching
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --helm-cache-max-size=10
@@ -88,8 +85,16 @@ spec:
             target:
               kind: Deployment
               name: source-controller
+          - # Cache Secrets and ConfigMaps
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CacheSecretsAndConfigMaps=true
+            target:
+              kind: Deployment
+              name: source-controller
           - # Flux near OOM detection for Helm
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --feature-gates=OOMWatch=true
@@ -103,7 +108,7 @@ spec:
               kind: Deployment
               name: helm-controller
           - # Disable chart digest tracking
-            patch: |
+            patch: |-
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --feature-gates=DisableChartDigestTracking=true
