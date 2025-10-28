@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: daps
 spec:
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: longhorn
       namespace: storage
