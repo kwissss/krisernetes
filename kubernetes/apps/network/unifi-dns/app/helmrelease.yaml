@@ -25,7 +25,7 @@ spec:
           - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: &secret unifi-dns-secret
+                name: unifi-dns-secret
                 key: UNIFI_API_KEY
         livenessProbe:
           httpGet:
@@ -51,4 +51,4 @@ spec:
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: *secret
+      secret.reloader.stakater.com/reload: auto
