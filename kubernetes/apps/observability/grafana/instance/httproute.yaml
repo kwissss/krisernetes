@@ -8,8 +8,8 @@ spec:
   hostnames:
     - "grafana.${SECRET_DOMAIN}"
   parentRefs:
-    - name: external
-      namespace: kube-system
+    - name: external-envoy
+      namespace: network
   rules:
     - backendRefs:
         - name: grafana-service

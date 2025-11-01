@@ -46,8 +46,8 @@ spec:
         hostnames:
           - "portal.${SECRET_DOMAIN_2}"
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy-external
+            namespace: network
             sectionName: https-2
     persistence:
       tmpfs:
