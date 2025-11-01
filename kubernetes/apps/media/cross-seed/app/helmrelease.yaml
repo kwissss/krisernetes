@@ -61,6 +61,12 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      secret-file:
+        type: secret
+        name: "{{ .Release.Name }}-secret"
+        globalMounts:
+          - path: /config/config.js
+            subPath: config.js
       media:
         type: nfs
         server: nas.internal
