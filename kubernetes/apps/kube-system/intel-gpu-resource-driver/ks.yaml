@@ -3,22 +3,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: plex
+  name: intel-gpu-resource-driver
 spec:
-  components:
-    - ../../../../components/volsync
-  dependsOn:
-    - name: intel-gpu-resource-driver
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: intel-gpu-resource-driver
       namespace: kube-system
-    - name: longhorn
-      namespace: storage
   interval: 1h
-  path: ./kubernetes/apps/media/plex/app
+  path: ./kubernetes/apps/kube-system/intel-gpu-resource-driver/app
   postBuild:
-    substitute:
-      APP: plex
-      VOLSYNC_CACHE_CAPACITY: 25Gi
-      VOLSYNC_CAPACITY: 50Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -27,5 +21,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: media
-  wait: false
+  targetNamespace: kube-system
