@@ -19,7 +19,7 @@ spec:
             - "alertmanager.${SECRET_DOMAIN}"
           parentRefs:
             - name: envoy-internal
-              namespace: kube-system
+              namespace: network
               sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
