@@ -23,7 +23,7 @@ spec:
               DISCORD_TOKEN:
                 valueFrom:
                   secretKeyRef:
-                    name: krisbot-secret
+                    name: krisbot-discord-secret
                     key: DISCORD_TOKEN
             securityContext:
               allowPrivilegeEscalation: false
