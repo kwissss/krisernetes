@@ -17,20 +17,18 @@ spec:
     bpf:
       datapathMode: netkit
       masquerade: true
-      # Ref: https://github.com/siderolabs/talos/issues/10002
-      hostLegacyRouting: false
       preallocateMaps: true
       tproxy: true
     bpfClockProbe: true
-    cni:
-      exclusive: false
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
+    cni:
+      exclusive: false
     dashboards:
       enabled: true
-    enableIPv4BIGTCP: true # disabled because of hostLegacyRouting true
+    enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
