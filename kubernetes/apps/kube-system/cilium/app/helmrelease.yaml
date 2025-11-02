@@ -13,7 +13,7 @@ spec:
     autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
-      bbr: false
+      bbr: true
     bpf:
       datapathMode: netkit
       masquerade: true
