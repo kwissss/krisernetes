@@ -1,0 +1,7 @@
+---
+machine:
+  install:
+    diskSelector:
+      serial: S4EVNF0M454702F
+  network:
+    hostname: talos-01
