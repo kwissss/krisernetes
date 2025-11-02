@@ -8,7 +8,7 @@ spec:
   hostnames:
     - "grafana.${SECRET_DOMAIN}"
   parentRefs:
-    - name: external-envoy
+    - name: envoy-external
       namespace: network
   rules:
     - backendRefs:
