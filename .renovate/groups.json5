@@ -41,7 +41,7 @@
       description: "Talos Group",
       groupName: "talos",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/installer/"],
+      matchPackageNames: ["/metal-installer/"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
