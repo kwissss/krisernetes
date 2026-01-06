@@ -8,7 +8,6 @@ machine:
     - 127.0.0.1
     - 192.168.20.10
   features:
-    apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     hostDNS:
       enabled: true
@@ -16,7 +15,6 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    rbac: true
     stableHostname: true
   files:
     - op: create
@@ -97,7 +95,6 @@ cluster:
     certSANs:
       - 127.0.0.1
       - 192.168.20.10
-    disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
       feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
