@@ -22,7 +22,6 @@ spec:
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: true
               EXECUTIONS_TIMEOUT: 600
-              EXECUTIONS_DATA_MAX_AGE: 7
               EXECUTIONS_DATA_PRUNE_MAX_COUNT: 50000
               GENERIC_TIMEZONE: Europe/Oslo
               N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
@@ -39,6 +38,29 @@ spec:
                   secretKeyRef:
                     name: n8n-secret
                     key: N8N_ENCRYPTION_KEY
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz/readiness
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
