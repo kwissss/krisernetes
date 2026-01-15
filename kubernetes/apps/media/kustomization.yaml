@@ -20,6 +20,7 @@ resources:
   - ./plex-trakt-sync/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
+  - ./qui/ks.yaml
   - ./radarr-hd/ks.yaml
   - ./radarr-uhd/ks.yaml
   - ./readarr/ks.yaml
@@ -27,5 +28,4 @@ resources:
   - ./sonarr-hd/ks.yaml
   - ./sonarr-uhd/ks.yaml
   - ./tautulli/ks.yaml
-  - ./tqm/ks.yaml
   - ./unpackerr/ks.yaml
