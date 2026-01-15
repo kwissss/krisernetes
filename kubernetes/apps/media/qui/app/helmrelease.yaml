@@ -79,4 +79,4 @@ spec:
         globalMounts:
           - path: /mnt/local/downloads/torrents/qbittorrent
             subPath: downloads/torrents/qbittorrent
-            readOnly: true
+
