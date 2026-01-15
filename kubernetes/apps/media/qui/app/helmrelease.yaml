@@ -72,3 +72,11 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
+      media:
+        type: nfs
+        server: nas.internal
+        path: /volume1/data
+        globalMounts:
+          - path: /mnt/local/downloads/torrents/qbittorrent
+            subPath: downloads/torrents/qbittorrent
+            readOnly: true
