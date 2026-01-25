@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/linuxserver/qbittorrent
-              tag: 5.1.4-libtorrentv1@sha256:03325e8a636860b1075d153b53cf9208cf8f7b5bec72d34ca68fe9f136e994eb
+              tag: 5.1.4-libtorrentv1@sha256:3e70879ce9e1613bfc967e0b9cc82651f066677ff27c1c0f3a62d057d8d53151
             env:
               PUID: 1000
               PGID: 1000
