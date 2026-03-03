@@ -13,7 +13,7 @@ sync:
     liked_lists: false
     ratings: false
     watched_status: true
-    watchlist: false
+    watchlist: true
 watch:
   add_collection: false
   remove_collection: false
