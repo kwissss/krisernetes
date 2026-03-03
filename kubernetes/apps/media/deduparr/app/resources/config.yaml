@@ -1,0 +1,18 @@
+---
+schedule: service
+action: remove
+remove_from_client: false
+radarr:
+  - name: radarr-hd
+    url: http://radarr-hd.media.svc.cluster.local
+    enabled: true
+  - name: radarr-uhd
+    url: http://radarr-uhd.media.svc.cluster.local
+    enabled: true
+sonarr:
+  - name: sonarr-hd
+    url: http://sonarr-hd.media.svc.cluster.local
+    enabled: true
+  - name: sonarr-uhd
+    url: http://sonarr-uhd.media.svc.cluster.local
+    enabled: true
