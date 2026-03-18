@@ -40,7 +40,7 @@ tasks:
       - op user get --me
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml
-      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
+      - test -f {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml
       - which minijinja-cli op talosctl
 
   upgrade-node:
