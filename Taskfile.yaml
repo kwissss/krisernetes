@@ -24,7 +24,9 @@ includes:
   volsync: .taskfiles/volsync
 
 tasks:
-  default: task --list
+  default:
+    cmd: task --list
+    silent: true
 
   reconcile:
     desc: Force Flux to pull in changes from your Git repository
