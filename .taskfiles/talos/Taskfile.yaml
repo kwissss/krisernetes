@@ -18,8 +18,7 @@ tasks:
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE={{.MODE}}]
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml \
-        | op inject \
+      op inject -i talos/machineconfig.yaml \
         | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/nodes/{{.NODE}}.yaml \
@@ -41,7 +40,7 @@ tasks:
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml
       - test -f {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml
-      - which minijinja-cli op talosctl
+      - which op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
@@ -59,6 +58,41 @@ tasks:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
       - which minijinja-cli talosctl yq
+
+  reboot-node:
+    desc: Reboot Talos on a single node [NODE=required] [MODE={{.MODE}}]
+    cmd: talosctl --nodes {{.NODE}} reboot --mode={{.MODE}}
+    vars:
+      MODE: '{{.MODE | default "default"}}'
+    requires:
+      vars: [NODE]
+    preconditions:
+      - talosctl config info
+      - talosctl --nodes {{.NODE}} get machineconfig
+      - which talosctl
+
+  shutdown-cluster:
+    desc: Shutdown Talos across the whole cluster
+    prompt: Shutdown the Talos cluster ... continue?
+    cmd: talosctl --nodes {{.NODES}} shutdown --force
+    vars:
+      NODES:
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+    preconditions:
+      - talosctl config info
+      - talosctl --nodes {{.NODES}} get machineconfig
+      - which jq talosctl
+
+  reset-node:
+    desc: Reset Talos on a single node [NODE=required]
+    prompt: Reset Talos node '{{.NODE}}' ... continue?
+    cmd: talosctl --nodes {{.NODE}} reset --reboot=true --graceful=false
+    requires:
+      vars: [NODE]
+    preconditions:
+      - talosctl config info
+      - talosctl --nodes {{.NODE}} get machineconfig
+      - which talosctl
 
   reset-cluster:
     desc: Reset Talos across the whole cluster
