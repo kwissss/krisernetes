@@ -5,13 +5,7 @@
 # It is not intended to be used with helmfile apply or helmfile sync.
 
 helmDefaults:
-  args:
-    - --include-crds
-    - --no-hooks
-  postRenderer: bash
-  postRendererArgs:
-    - -c
-    - yq ea -e 'select(.kind == "CustomResourceDefinition")'
+  args: ['--include-crds', '--no-hooks'] # Prevent helmfile apply or sync
 
 releases:
   - name: external-secrets
