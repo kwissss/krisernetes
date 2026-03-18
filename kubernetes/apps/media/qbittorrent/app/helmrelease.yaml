@@ -27,20 +27,24 @@ spec:
               WEBUI_PORT: &port 80
               QBT_WEBUI_PORT: *port
             probes:
-              liveness: &probes
-                enabled: false
+              liveness:
+                enabled: true
+                spec:
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness:
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /api/v2/app/version
                     port: *port
-                  initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+                  timeoutSeconds: 5
+                  failureThreshold: 5
               startup:
-                enabled: false
+                enabled: true
                 spec:
                   failureThreshold: 30
                   periodSeconds: 10
@@ -54,13 +58,13 @@ spec:
               limits:
                 memory: 16Gi
     defaultPodOptions:
+      terminationGracePeriodSeconds: 600
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-      terminationGracePeriodSeconds: 300
     service:
       app:
         forceRename: "{{ .Release.Name }}"
