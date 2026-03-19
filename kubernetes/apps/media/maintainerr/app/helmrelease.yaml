@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/jorenn92/maintainerr
-              tag: 2.19.0@sha256:bee84707edaf589cda3d18b6813cbfe3a137b52786210c3a28190e10910c1240
+              repository: ghcr.io/maintainerr/maintainerr:3.1.0
+              tag: 3.1.0@sha256:6c994bb7fd0dbe22deb008478bc6b35f2a8f2bb12412f6157a935d6c8842bd11
             env:
               TZ: Europe/Oslo
               UI_PORT: &port 80
@@ -59,10 +59,5 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /opt/data
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          maintainerr:
-            app:
-              - path: /tmp
-                subPath: tmp
