@@ -19,10 +19,7 @@
     ":timezone(Europe/Oslo)",
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  ignorePaths: [
-    "**/*.sops.*",
-    "**/resources/**",
-  ],
+  ignorePaths: ["**/resources/**"],
   suppressNotifications: [
     "prEditedNotification",
     "prIgnoreNotification",
