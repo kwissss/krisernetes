@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: qbittorrent
   interval: 1h
   values:
     controllers:
@@ -17,15 +17,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/linuxserver/qbittorrent
-              tag: 5.1.4-libtorrentv1@sha256:4f6b28739ae2279559fdc07fd03809f99760481e332f2d93ee556201aa0ad433
+              repository: ghcr.io/home-operations/qbittorrent-libtorrentv1
+              tag: 5.1.4@sha256:f8ded91789511af07db8e47bcfde9440f3c2d235e85b7eee13c9d03a7a4107c9
             env:
-              PUID: 1000
-              PGID: 1000
               TZ: Europe/Oslo
-              TORRENTING_PORT: &torrentPort 50413
-              WEBUI_PORT: &port 80
-              QBT_WEBUI_PORT: *port
+              QBT_TORRENTING_PORT: &torrentPort 50413
+              QBT_WEBUI_PORT: &port 80
             probes:
               liveness:
                 enabled: true
@@ -49,12 +46,13 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
-              allowPrivilegeEscalation: true # s6
+              allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 100m
-                memory: 8Gi
+                memory: 2Gi
               limits:
                 memory: 16Gi
     defaultPodOptions:
@@ -100,10 +98,5 @@ spec:
         path: /volume1/data
         globalMounts:
           - path: /mnt/local
-      tmpfs:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /run
-            subPath: run
-          - path: /tmp
-            subPath: tmp
