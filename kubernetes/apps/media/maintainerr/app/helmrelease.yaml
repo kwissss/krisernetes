@@ -65,4 +65,4 @@ spec:
           - path: /tmp
             subPath: tmp
           - path: /opt/app/apps/server/dist/ui
-            subPath: tmp
+            subPath: ui
