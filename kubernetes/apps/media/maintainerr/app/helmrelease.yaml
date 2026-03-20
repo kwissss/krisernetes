@@ -28,7 +28,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -61,8 +61,3 @@ spec:
           - path: /opt/data
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
-            subPath: tmp
-          - path: /opt/app/apps/server/dist/ui
-            subPath: ui
