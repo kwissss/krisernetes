@@ -61,3 +61,8 @@ spec:
           - path: /opt/data
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /opt/app/apps/server/dist/ui
+            subPath: tmp
