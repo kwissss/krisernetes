@@ -22,9 +22,7 @@ spec:
             env:
               TZ: Europe/Oslo
               DN_RADARR_0_URL: http://radarr-hd.media.svc.cluster.local
-              DN_RADARR_1_URL: http://radarr-uhd.media.svc.cluster.local
               DN_SONARR_0_URL: http://sonarr-hd.media.svc.cluster.local
-              DN_SONARR_1_URL: http://sonarr-uhd.media.svc.cluster.local
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

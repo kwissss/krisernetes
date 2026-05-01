@@ -23,7 +23,6 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./radarr-hd/ks.yaml
-  - ./radarr-uhd/ks.yaml
   - ./readarr/ks.yaml
   - ./readarr-ab/ks.yaml
   - ./sonarr-hd/ks.yaml
