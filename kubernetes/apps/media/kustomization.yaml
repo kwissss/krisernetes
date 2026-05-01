@@ -27,6 +27,5 @@ resources:
   - ./readarr/ks.yaml
   - ./readarr-ab/ks.yaml
   - ./sonarr-hd/ks.yaml
-  - ./sonarr-uhd/ks.yaml
   - ./tautulli/ks.yaml
   - ./unpackerr/ks.yaml
