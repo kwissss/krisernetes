@@ -68,5 +68,5 @@ spec:
         endpoints:
           - port: http
     persistence:
-      config:
+      data:
         existingClaim: "{{ .Release.Name }}"
