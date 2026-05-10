@@ -11,6 +11,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./brrpolice/ks.yaml
   - ./deduparr/ks.yaml
   - ./seerr/ks.yaml
 # - ./kometa/ks.yaml
