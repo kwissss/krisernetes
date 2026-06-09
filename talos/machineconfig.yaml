@@ -38,7 +38,7 @@ machine:
   install:
     diskSelector:
       serial: S4EVNF0M454702F
-    image: factory.talos.dev/metal-installer/dbddf9d0e19b2513ffd542b28f5d41efc297b571424eff863e668c12cb657383:v1.13.0
+    image: factory.talos.dev/metal-installer/dbddf9d0e19b2513ffd542b28f5d41efc297b571424eff863e668c12cb657383:v1.13.4
     wipe: false
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
