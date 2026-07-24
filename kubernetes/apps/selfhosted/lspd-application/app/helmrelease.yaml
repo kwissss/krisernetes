@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/spiizor/lspdapplication
-              tag: main@sha256:5cd4305466f41d9b992ddc1b000d445e89d3f2dd8b6710817bb8573ec12f3e9e
+              tag: main@sha256:18d4c26631ff1c6dc813e574545a68721d697d7024838165bc18abebb719d081
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
