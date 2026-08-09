@@ -3,5 +3,7 @@ machine:
   install:
     diskSelector:
       serial: S4EVNF0M454702F
-  network:
-    hostname: talos-01
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: talos-01

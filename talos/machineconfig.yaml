@@ -6,7 +6,8 @@ machine:
     key: op://kubernetes/talos/MACHINE_CA_KEY
   certSANs:
     - 127.0.0.1
-    - 192.168.20.10
+    - 192.168.20.20
+    - k8s.internal
   features:
     diskQuotaSupport: true
     hostDNS:
@@ -15,7 +16,6 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -49,13 +49,6 @@ machine:
     nodeIP:
       validSubnets:
         - 192.168.20.0/24
-  network:
-    interfaces:
-      - interface: eno1
-        mtu: 1500
-        dhcp: true
-        vip:
-          ip: 192.168.20.10
   nodeLabels:
     node.kubernetes.io/gpu: "true"
   sysctls:
@@ -91,7 +84,8 @@ cluster:
         - level: Metadata
     certSANs:
       - 127.0.0.1
-      - 192.168.20.10
+      - 192.168.20.20
+      - k8s.internal
     extraArgs:
       enable-aggregator-routing: "true"
     image: registry.k8s.io/kube-apiserver:v1.36.2
@@ -104,7 +98,7 @@ cluster:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-controller-manager:v1.36.2
   controlPlane:
-    endpoint: https://192.168.20.10:6443
+    endpoint: https://192.168.20.20:6443
   coreDNS:
     disabled: true
   discovery:
@@ -153,10 +147,16 @@ provisioning:
   maxSize: 2TB
 ---
 apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "e1000e" && mac(link.permanent_addr).startsWith("54:b2:03:19:")
+---
+apiVersion: v1alpha1
 kind: BondConfig
 name: bond0
 links:
-  - eno1
+  - net0
 bondMode: active-backup
 ---
 apiVersion: v1alpha1
@@ -164,7 +164,6 @@ kind: DHCPv4Config
 name: bond0
 clientIdentifier: mac
 ---
-# IOT
 apiVersion: v1alpha1
 kind: VLANConfig
 name: bond0.40
