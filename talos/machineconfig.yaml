@@ -151,3 +151,22 @@ provisioning:
   diskSelector:
     match: disk.serial == "S4J4NX0R819227P"
   maxSize: 2TB
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - eno1
+bondMode: active-backup
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+# IOT
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.40
+vlanID: 40
+parent: bond0
