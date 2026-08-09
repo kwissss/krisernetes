@@ -32,6 +32,13 @@ spec:
               limits:
                 memory: 2Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "iot",
+            "namespace": "networking",
+            "ips": ["192.168.40.200/24"]
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -50,7 +57,7 @@ spec:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
           - "hass.${SECRET_DOMAIN}"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: network
     persistence:
       config:
