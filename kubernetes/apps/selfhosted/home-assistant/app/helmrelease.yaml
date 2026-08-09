@@ -36,7 +36,7 @@ spec:
         k8s.v1.cni.cncf.io/networks: |-
           [{
             "name": "iot",
-            "namespace": "networking",
+            "namespace": "network",
             "ips": ["192.168.40.200/24"]
           }]
       securityContext:
