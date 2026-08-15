@@ -12,11 +12,6 @@
       changelogUrl: "https://github.com/cloudflare/cloudflared/blob/master/RELEASE_NOTES",
     },
     {
-      description: "Changelog URL for Kometa",
-      matchPackageNames: ["/kometa/"],
-      changelogUrl: "https://github.com/Kometa-Team/Kometa/releases",
-    },
-    {
       description: "Changelog URL for Spegel",
       matchPackageNames: ["/spegel/"],
       changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",

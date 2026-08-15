@@ -14,7 +14,6 @@ resources:
   - ./brrpolice/ks.yaml
   - ./deduparr/ks.yaml
   - ./seerr/ks.yaml
-# - ./kometa/ks.yaml
   - ./maintainerr/ks.yaml
   - ./notifiarr/ks.yaml
   - ./plex/ks.yaml
