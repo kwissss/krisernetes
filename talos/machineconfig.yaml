@@ -45,7 +45,7 @@ machine:
     disableManifestsDirectory: true
     extraConfig:
       serializeImagePulls: false
-    image: ghcr.io/siderolabs/kubelet:v1.36.2
+    image: ghcr.io/siderolabs/kubelet:v1.36.4
     nodeIP:
       validSubnets:
         - 192.168.20.0/24
@@ -88,7 +88,7 @@ cluster:
       - k8s.internal
     extraArgs:
       enable-aggregator-routing: "true"
-    image: registry.k8s.io/kube-apiserver:v1.36.2
+    image: registry.k8s.io/kube-apiserver:v1.36.4
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
     key: op://kubernetes/talos/CLUSTER_CA_KEY
@@ -96,7 +96,7 @@ cluster:
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-controller-manager:v1.36.2
+    image: registry.k8s.io/kube-controller-manager:v1.36.4
   controlPlane:
     endpoint: https://192.168.20.20:6443
   coreDNS:
@@ -127,11 +127,11 @@ cluster:
       - 10.43.0.0/16
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.36.2
+    image: registry.k8s.io/kube-proxy:v1.36.4
   scheduler:
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.36.2
+    image: registry.k8s.io/kube-scheduler:v1.36.4
   secret: op://kubernetes/talos/CLUSTER_SECRET
   secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
