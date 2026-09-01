@@ -25,7 +25,7 @@ spec:
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
               SONARR__LOG__LEVEL: info
-              SONARR__SERVER__ALLOWEDHOSTS: sonarr-hd.${SECRET_DOMAIN},sonarr-hd.default.svc.cluster.local
+              SONARR__SERVER__ALLOWEDHOSTS: sonarr-hd.${SECRET_DOMAIN},sonarr-hd.media.svc.cluster.local
               SONARR__SERVER__PORT: &port 80
               SONARR__SERVER__TRUSTEDNETWORKS: 10.42.0.0/16
               SONARR__UPDATE__BRANCH: develop
