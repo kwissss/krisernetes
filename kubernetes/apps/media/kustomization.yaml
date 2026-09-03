@@ -23,4 +23,3 @@ resources:
   - ./readarr-ab/ks.yaml
   - ./sonarr-hd/ks.yaml
   - ./tautulli/ks.yaml
-  - ./unpackerr/ks.yaml
