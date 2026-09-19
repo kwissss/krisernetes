@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/kwissss/mining-cult
-              tag: main@sha256:a7b27c1e0c769fd4929c2b020f974b71608f483aa2fab4bba80a8c7d2479d7b8
+              repository: ghcr.io/duckysolucky/hypixel-discord-chat-bridge
+              tag: latest@sha256:9847598b83c7c669c9e1c2665ed539fef8a2d32996bf6660f8dc56555ebfade2 
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -26,12 +26,10 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 15Mi
+                memory: 200Mi
               limits:
-                memory: 400Mi
+                memory: 700Mi
     defaultPodOptions:
-      imagePullSecrets:
-        - name: ghcr-auth-secret
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -44,18 +42,16 @@ spec:
         advancedMounts:
           mining-cult:
             app:
-              - path: /usr/src/app/auth-cache
+              - path: /app/data/auth-cache
                 subPath: auth-cache/
-              - path: /usr/src/app/config.json
+              - path: /app/config.json
                 subPath: config.json
-              - path: /usr/src/app/data
+              - path: /app/data
                 subPath: data/
-              - path: /usr/src/app/messages.json
-                subPath: messages.json
-              - path: /usr/src/app/node_modules/skyhelper-networth/.itemsBackup.json
+              - path: /app/node_modules/skyhelper-networth/.itemsBackup.json
                 subPath: .itemsBackup.json
       cache:
         type: emptyDir
         globalMounts:
-          - path: /usr/src/app/logs
+          - path: /app/data/logs
             subPath: logs
