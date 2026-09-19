@@ -18,15 +18,15 @@ spec:
           app:
             image:
               repository: ghcr.io/duckysolucky/hypixel-discord-chat-bridge
-              tag: latest@sha256:9847598b83c7c669c9e1c2665ed539fef8a2d32996bf6660f8dc56555ebfade2 
+              tag: latest@sha256:9847598b83c7c669c9e1c2665ed539fef8a2d32996bf6660f8dc56555ebfade2
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
               requests:
-                cpu: 5m
-                memory: 200Mi
+                cpu: 10m
+                memory: 300Mi
               limits:
                 memory: 700Mi
     defaultPodOptions:
