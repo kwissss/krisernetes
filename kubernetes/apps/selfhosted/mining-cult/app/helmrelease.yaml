@@ -50,8 +50,5 @@ spec:
                 subPath: data/
               - path: /app/node_modules/skyhelper-networth/.itemsBackup.json
                 subPath: .itemsBackup.json
-      cache:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /app/data/logs
-            subPath: logs
