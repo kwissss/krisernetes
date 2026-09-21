@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/duckysolucky/hypixel-discord-chat-bridge
-              tag: latest@sha256:9847598b83c7c669c9e1c2665ed539fef8a2d32996bf6660f8dc56555ebfade2
+              tag: latest@sha256:1ae33da55306f2de0f3a58389264fceb02165fabba71dd8b77bfbfb8095819df
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
