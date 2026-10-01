@@ -59,22 +59,6 @@ jobs:
           flate diff $KIND >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
-      - name: Generate Diff
-        id: diff
-        run: |
-          cat diff.patch;
-          {
-              echo 'diff<<EOF'
-              cat diff.patch
-              echo EOF
-          } >> "$GITHUB_OUTPUT";
-          {
-              echo "### Diff"
-              echo '```diff'
-              cat diff.patch
-              echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Add Comment
         uses: mshick/add-pr-comment@ec328af66588ab8f77cdeb2c264f14aba45bbf59 # v3.12.0
