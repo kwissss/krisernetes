@@ -16,5 +16,15 @@
       matchPackageNames: ["/spegel/"],
       changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
     },
+    {
+      description: "Changelog URL for lspdapplication",
+      matchPackageNames: ["/lspdapplication/"],
+      changelogUrl: "https://github.com/spiizor/lspdapplication/commits/main/",
+    },
+    {
+      description: "Changelog URL for hypixel-discord-chat-bridge",
+      matchPackageNames: ["/hypixel-discord-chat-bridge/"],
+      changelogUrl: "https://github.com/duckysolucky/hypixel-discord-chat-bridge/commits/main/",
+    },
   ],
 }
