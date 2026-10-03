@@ -14,9 +14,12 @@ spec:
       defaultReplicaCount: "1"
       defaultDataPath: /var/mnt/local-hostpath
       nodeDrainPolicy: allow-if-replica-is-stopped
+      concurrentAutomaticEngineUpgradePerNodeLimit: 1
     persistence:
       reclaimPolicy: Delete
       defaultClassReplicaCount: 1
+    longhornGlobalManager:
+      replicas: 1
     longhornUI:
       replicas: 1
     csi:
