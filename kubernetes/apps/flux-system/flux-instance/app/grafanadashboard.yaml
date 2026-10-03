@@ -4,11 +4,13 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: flux-k8s-api-performance
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: Enabled
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
@@ -19,11 +21,13 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: flux-performance
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: Enabled
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
@@ -34,11 +38,13 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: flux-cluster
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: Enabled
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
@@ -49,11 +55,13 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: flux-control-plane
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: Enabled
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
   datasources:
     - datasourceName: prometheus
       inputName: DS_PROMETHEUS
