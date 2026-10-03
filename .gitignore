@@ -1,7 +1,6 @@
 .decrypted~*
 .DS_Store
 .private/
-.task/
 .venv/
 *.crt
 *.env
