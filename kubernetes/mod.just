@@ -46,7 +46,7 @@ remount ns app:
         done
     }
     trap scale_back EXIT
-    claims="$(kubectl -n {{ ns }} get $workloads -o jsonpath='{.items[*].spec.template.spec.volumes[*].persistentVolumeClaim.claimName}')"
+    claims="$(kubectl -n {{ ns }} get deploy,sts -l app.kubernetes.io/name={{ app }} -o jsonpath='{.items[*].spec.template.spec.volumes[*].persistentVolumeClaim.claimName}')"
     kubectl -n {{ ns }} scale $workloads --replicas=0
     kubectl -n {{ ns }} wait pod --for=delete --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
     for claim in $claims; do
