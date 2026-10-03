@@ -33,6 +33,42 @@ prune-pods:
 reconcile:
     flux -n flux-system reconcile kustomization flux-system --with-source
 
+[doc('Scale an app to 0 until its Longhorn volumes detach, then scale it back')]
+remount ns app:
+    workloads="$(kubectl -n {{ ns }} get deploy,sts -l app.kubernetes.io/name={{ app }} -o name)"
+    declare -A replicas
+    for w in $workloads; do
+        replicas[$w]="$(kubectl -n {{ ns }} get "$w" -o jsonpath='{.spec.replicas}')"
+    done
+    scale_back() {
+        for w in $workloads; do
+            kubectl -n {{ ns }} scale "$w" --replicas="${replicas[$w]}"
+        done
+    }
+    trap scale_back EXIT
+    claims="$(kubectl -n {{ ns }} get $workloads -o jsonpath='{.items[*].spec.template.spec.volumes[*].persistentVolumeClaim.claimName}')"
+    kubectl -n {{ ns }} scale $workloads --replicas=0
+    kubectl -n {{ ns }} wait pod --for=delete --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
+    for claim in $claims; do
+        pv="$(kubectl -n {{ ns }} get pvc "$claim" -o jsonpath='{.spec.volumeName}')"
+        kubectl -n storage get volumes.longhorn.io "$pv" &>/dev/null || continue
+        kubectl -n storage wait volumes.longhorn.io "$pv" --for=jsonpath='{.status.state}'=detached --timeout=5m
+    done
+    trap - EXIT
+    scale_back
+    kubectl -n {{ ns }} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
+
+[doc('Remount every app with an attached Longhorn volume')]
+remount-all:
+    apps="$(kubectl -n storage get volumes.longhorn.io -o json \
+        | jq -r '.items[] | select(.status.state == "attached") | .status.kubernetesStatus as $k | $k.workloadsStatus[]? | "\($k.namespace) \(.podName)"' \
+        | while read -r ns pod; do
+            echo "$ns $(kubectl -n "$ns" get pod "$pod" -o jsonpath='{.metadata.labels.app\.kubernetes\.io/name}')"
+        done | sort -u)"
+    while read -r ns app; do
+        just kube remount "$ns" "$app"
+    done <<< "$apps"
+
 [doc('Restore a PVC from VolSync')]
 restore ns app previous='0':
     flux -n {{ ns }} suspend kustomization {{ app }}
