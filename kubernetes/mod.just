@@ -61,6 +61,19 @@ snapshot ns app:
     kubectl -n {{ ns }} wait job/volsync-src-{{ app }} --for=create --timeout=120s
     kubectl -n {{ ns }} wait job/volsync-src-{{ app }} --for=condition=complete --timeout=120m
 
+[doc('Snapshot all PVCs with VolSync')]
+snapshot-all:
+    ts="$(date +%s)"
+    sources="$(kubectl get replicationsources -A --no-headers -o custom-columns=NS:.metadata.namespace,NAME:.metadata.name)"
+    while read -r ns app; do
+        kubectl -n "$ns" patch replicationsources "$app" --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"${ts}\"}}}"
+    done <<< "$sources"
+    # A manual trigger overrides the schedule in VolSync, so drop it once the sync is done
+    while read -r ns app; do
+        kubectl -n "$ns" wait replicationsources "$app" --for=jsonpath='{.status.lastManualSync}'="${ts}" --timeout=120m
+        kubectl -n "$ns" patch replicationsources "$app" --type json -p '[{"op":"remove","path":"/spec/trigger/manual"}]'
+    done <<< "$sources"
+
 [doc('Unlock a VolSync restic repository')]
 unlock ns app:
     kubectl apply --server-side -f - <<EOF

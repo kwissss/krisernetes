@@ -115,12 +115,6 @@
       },
       minimumGroupSize: 2,
     },
-    {
-      description: "1Password CLI is not resolvable on GitHub, bump manually",
-      matchManagers: ["mise"],
-      matchDepNames: ["1password-cli"],
-      enabled: false,
-    },
     // Scheduling rules
     {
       description: "High-cadence mise tools monthly",
