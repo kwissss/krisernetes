@@ -6,8 +6,7 @@ metadata:
   name: nas
 spec:
   allowedNamespaces:
-    list:
-      - media
+    all: true
   backend:
     filesystem:
       path: /repository
