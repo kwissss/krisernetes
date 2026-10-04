@@ -9,11 +9,11 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 apply-node node *args:
     just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
 
-[doc('Download Talos ISO')]
+[doc('Download Talos machine image')]
 download-image version:
     schematic="$(just talos schematic-id)"
     curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
-        -o "{{ source_directory() }}/talos-{{ version }}.iso" \
+        -o "{{ source_directory() }}/talos-{{ version }}-${schematic:0:8}.iso" \
         "https://factory.talos.dev/image/${schematic}/{{ version }}/metal-amd64.iso"
     just log info "Downloaded Talos" version "{{ version }}" schematic "${schematic}"
 
@@ -23,8 +23,8 @@ kubeconfig:
 
 [confirm('Reboot node ' + node + ' [y|N] ?')]
 [doc('Reboot a node')]
-reboot-node node *args:
-    talosctl -n "{{ node }}" reboot {{ args }}
+reboot-node node:
+    talosctl -n {{ node }} reboot -m powercycle
 
 [doc('Render Talos config for a node')]
 render-config node:
@@ -35,7 +35,7 @@ render-config node:
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node *args:
-    talosctl -n "{{ node }}" reset --reboot --graceful=false {{ args }}
+    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --system-labels-to-wipe u-local-hostpath --graceful=false {{ args }}
 
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
