@@ -28,7 +28,8 @@ reboot-node node *args:
 
 [doc('Render Talos config for a node')]
 render-config node:
-    talosctl machineconfig patch <(op inject -i "{{ source_directory() }}/machineconfig.yaml") \
+    schematic="$(just talos schematic-id)"
+    talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2" -D "schematic=${schematic}") \
         -p @"{{ source_directory() }}/nodes/{{ node }}.yaml"
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
@@ -49,14 +50,17 @@ upgrade-k8s version:
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node *args:
-    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image "{{ node }}")" -m powercycle --timeout=10m {{ args }}
+    image="$(just talos machine-image)"
+    talosctl -n "{{ node }}" upgrade -i "${image}" -m powercycle --timeout=10m {{ args }}
 
 [private]
-machine-image node:
-    just talos render-config "{{ node }}" | yq -r -e 'select(.machine) | .machine.install.image'
+machine-image:
+    schematic="$(just talos schematic-id)"
+    minijinja-cli "{{ source_directory() }}/machineconfig.yaml.j2" -D "schematic=${schematic}" \
+        | yq -r -e 'select(.kind == "UnattendedInstallConfig") | .installer.image'
 
 [private]
 schematic-id:
     minijinja-cli "{{ source_directory() }}/schematic.yaml.j2" \
-        | curl -sX POST --data-binary @- "https://factory.talos.dev/schematics" \
-        | jq -r '.id'
+        | curl -fsSX POST --data-binary @- "https://factory.talos.dev/schematics" \
+        | jq -r -e '.id'
