@@ -8,11 +8,6 @@ spec:
   components:
     - ../../../../components/volsync
     - ../../../../components/kopiur
-  dependsOn:
-    - name: intel-gpu-resource-driver
-      namespace: kube-system
-    - name: longhorn
-      namespace: storage
   interval: 1h
   path: ./kubernetes/apps/media/plex/app
   postBuild:
@@ -20,6 +15,7 @@ spec:
       APP: plex
       VOLSYNC_CACHE_CAPACITY: 25Gi
       VOLSYNC_CAPACITY: 50Gi
+      KOPIUR_CAPACITY: 50Gi
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kopiur.home-operations.com/snapshotpolicy_v1alpha1.json
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/snapshotpolicy_v1alpha1.json
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: SnapshotPolicy
 metadata:
@@ -9,17 +9,17 @@ spec:
     compressor: zstd
   mover:
     cache:
-      capacity: ${KOPIUR_CACHE_CAPACITY:=5Gi}
+      capacity: ${KOPIUR_CAPACITY:=5Gi}
       mode: Persistent
-      storageClassName: ${KOPIUR_CACHE_STORAGECLASS:=openebs-hostpath}
+      storageClassName: openebs-hostpath
   repository:
     kind: ClusterRepository
     name: nas
   retention:
+    keepLatest: 3
     keepHourly: 24
-    keepDaily: 14
-    keepMonthly: 1
-    keepAnnual: 6
+    keepDaily: 7
+    keepWeekly: 4
   sources:
     - pvc:
         name: ${APP}
