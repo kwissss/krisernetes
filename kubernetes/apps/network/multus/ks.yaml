@@ -21,6 +21,8 @@ kind: Kustomization
 metadata:
   name: multus-networks
 spec:
+  dependsOn:
+    - name: multus
   interval: 1h
   path: ./kubernetes/apps/network/multus/networks
   prune: true
