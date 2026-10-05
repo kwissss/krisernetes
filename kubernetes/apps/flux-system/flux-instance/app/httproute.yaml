@@ -6,7 +6,7 @@ metadata:
   name: github-webhook
 spec:
   hostnames:
-    - "flux-webhook.${SECRET_DOMAIN}"
+    - "flux-webhook.kris.party"
   parentRefs:
     - name: envoy-external
       namespace: network

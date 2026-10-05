@@ -3,11 +3,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_DOMAIN/./-}-production"
+  name: "kris-party-production"
 spec:
   dnsNames:
-    - "${SECRET_DOMAIN}"
-    - "*.${SECRET_DOMAIN}"
+    - "kris.party"
+    - "*.kris.party"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -16,7 +16,7 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: "${SECRET_DOMAIN/./-}-production-tls"
+  secretName: "kris-party-production-tls"
   usages:
     - digital signature
 ---
@@ -24,11 +24,11 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${SECRET_DOMAIN_2/./-}-production"
+  name: "lspdonline-net-production"
 spec:
   dnsNames:
-    - "${SECRET_DOMAIN_2}"
-    - "*.${SECRET_DOMAIN_2}"
+    - "lspdonline.net"
+    - "*.lspdonline.net"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -37,6 +37,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: "${SECRET_DOMAIN_2/./-}-production-tls"
+  secretName: "lspdonline-net-production-tls"
   usages:
     - digital signature

@@ -32,8 +32,8 @@ spec:
     txtPrefix: k8s.%{record_type}-
     txtOwnerId: default
     domainFilters:
-      - "${SECRET_DOMAIN}"
-      - "${SECRET_DOMAIN_2}"
+      - "kris.party"
+      - "lspdonline.net"
     serviceMonitor:
       enabled: true
     podAnnotations:
