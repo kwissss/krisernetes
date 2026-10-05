@@ -15,9 +15,6 @@ spec:
   postBuild:
     substitute:
       APP: home-assistant
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository

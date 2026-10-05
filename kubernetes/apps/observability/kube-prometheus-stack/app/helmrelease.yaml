@@ -16,7 +16,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - "alertmanager.${SECRET_DOMAIN}"
+            - "alertmanager.kris.party"
           parentRefs:
             - name: envoy-internal
               namespace: network
@@ -26,7 +26,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://alertmanager.${SECRET_DOMAIN}
+        externalUrl: https://alertmanager.kris.party
         storage:
           volumeClaimTemplate:
             spec:
@@ -45,12 +45,12 @@ spec:
         main:
           enabled: true
           hostnames:
-            - prometheus.${SECRET_DOMAIN}
+            - prometheus.kris.party
           parentRefs:
             - name: envoy-internal
               namespace: network
       prometheusSpec:
-        externalUrl: https://prometheus.${SECRET_DOMAIN}
+        externalUrl: https://prometheus.kris.party
         version: v2.55.1 # override 'unsupported Prometheus version' error for prompp
         image:
           registry: mirror.gcr.io

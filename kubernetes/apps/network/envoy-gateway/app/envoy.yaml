@@ -50,7 +50,7 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.kubernetes.io/target: &hostname "external.${SECRET_DOMAIN}"
+    external-dns.kubernetes.io/target: &hostname "external.kris.party"
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -67,25 +67,25 @@ spec:
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.${SECRET_DOMAIN}"
+      hostname: "*.kris.party"
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: ${SECRET_DOMAIN/./-}-production-tls
+            name: kris-party-production-tls
     - name: https-2
       protocol: HTTPS
       port: 443
-      hostname: "*.${SECRET_DOMAIN_2}"
+      hostname: "*.lspdonline.net"
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: ${SECRET_DOMAIN_2/./-}-production-tls
+            name: lspdonline-net-production-tls
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -93,7 +93,7 @@ kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.kubernetes.io/target: &hostname "internal.${SECRET_DOMAIN}"
+    external-dns.kubernetes.io/target: &hostname "internal.kris.party"
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -116,7 +116,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: ${SECRET_DOMAIN/./-}-production-tls
+            name: kris-party-production-tls
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1

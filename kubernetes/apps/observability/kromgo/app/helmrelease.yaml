@@ -76,7 +76,7 @@ spec:
         - name: envoy-external
           namespace: network
       hostnames:
-        - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        - "{{ .Release.Name }}.kris.party"
     resources:
       requests:
         cpu: 10m

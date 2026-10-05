@@ -4,11 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 components:
-  - ../../components/common
   - ../../components/kopiur/secret
 resources:
   - ./namespace.yaml
-#  - ./agregarr/ks.yaml
+  #  - ./agregarr/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml

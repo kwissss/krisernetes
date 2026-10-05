@@ -6,7 +6,7 @@ metadata:
   name: longhorn-frontend
 spec:
   hostnames:
-    - "longhorn.${SECRET_DOMAIN}"
+    - "longhorn.kris.party"
   parentRefs:
     - name: envoy-internal
       namespace: network

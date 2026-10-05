@@ -23,7 +23,7 @@ spec:
       httpRoute:
         enabled: true
         hostnames:
-          - "flux-operator.${SECRET_DOMAIN}"
+          - "flux-operator.kris.party"
         parentRefs:
           - name: envoy-internal
             namespace: network

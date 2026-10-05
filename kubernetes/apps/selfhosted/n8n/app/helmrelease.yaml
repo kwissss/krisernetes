@@ -24,7 +24,7 @@ spec:
               EXECUTIONS_TIMEOUT: 600
               EXECUTIONS_DATA_PRUNE_MAX_COUNT: 50000
               GENERIC_TIMEZONE: Europe/Oslo
-              N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.kris.party"
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
               N8N_VERSION_NOTIFICATIONS_ENABLED: false
               N8N_HIRING_BANNER_ENABLED: false
@@ -67,7 +67,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -89,13 +89,13 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}.kris.party"
         parentRefs:
           - name: envoy-external
             namespace: network
       api:
         hostnames:
-          - "{{ .Release.Name }}-api.${SECRET_DOMAIN}"
+          - "{{ .Release.Name }}-api.kris.party"
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -7,10 +7,6 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/observability/silence-operator/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
@@ -29,10 +25,6 @@ spec:
     - name: silence-operator
   interval: 1h
   path: ./kubernetes/apps/observability/silence-operator/silences
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository

@@ -25,7 +25,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 10m
@@ -44,7 +44,7 @@ spec:
     route:
       app:
         hostnames:
-          - "portal.${SECRET_DOMAIN_2}"
+          - "portal.lspdonline.net"
         parentRefs:
           - name: envoy-external
             namespace: network

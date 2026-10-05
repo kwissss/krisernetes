@@ -15,9 +15,6 @@ spec:
   postBuild:
     substitute:
       APP: agregarr
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
