@@ -11,7 +11,6 @@ _... a single-node home Kubernetes cluster managed with Flux and Renovate_ <img 
 [![Talos](https://kromgo.kris.party/badges/talos_version)](https://www.talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://kromgo.kris.party/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
 [![Flux](https://kromgo.kris.party/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
-[![flux-local](https://img.shields.io/github/actions/workflow/status/kwissss/krisernetes/flux-local.yaml?branch=main&label=flux-local&logo=github)](https://github.com/kwissss/krisernetes/actions/workflows/flux-local.yaml)
 
 </div>
 
