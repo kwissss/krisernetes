@@ -4,9 +4,17 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: cloudflare-tunnel
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
+  dependsOn:
+    - name: cloudflare-dns
   interval: 1h
-  path: ./kubernetes/apps/network/cloudflare-tunnel
+  path: ./kubernetes/apps/network/cloudflare-tunnel/app
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cloudflare-tunnel-id-secret
   prune: true
   sourceRef:
     kind: GitRepository
