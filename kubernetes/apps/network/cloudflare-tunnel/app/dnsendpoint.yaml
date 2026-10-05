@@ -9,8 +9,8 @@ spec:
     - dnsName: "external.kris.party"
       recordType: CNAME
       targets:
-        - 48248b14-3ebf-4795-8b5d-0a207037c635.cfargotunnel.com
+        - ${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com
     - dnsName: "external.lspdonline.net"
       recordType: CNAME
       targets:
-        - 48248b14-3ebf-4795-8b5d-0a207037c635.cfargotunnel.com
+        - ${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com

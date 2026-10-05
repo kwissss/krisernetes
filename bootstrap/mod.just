@@ -43,21 +43,21 @@ kubeconfig:
 [private]
 base: api-ready nodes-ready
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    if ! op inject -i "{{ source_directory() }}/resources.yaml" | kubectl apply --server-side -f -; then
-        just log fatal "Failed to apply bootstrap resources" "stage" "{{ recipe_name() }}"
+    if ! kustomize build {{ source_directory() }}/kustomize/personal | just template - | kubectl apply --server-side --force-conflicts -f -; then
+        just log fatal "Failed to apply personal manifests" "stage" "{{ recipe_name() }}"
     fi
-    if ! helmfile -f "{{ source_directory() }}/helmfile.d/00-crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --field-manager bootstrap --force-conflicts -f -; then
+    if ! helmfile -f "{{ source_directory() }}/helmfile/crds.yaml" template -q | yq ea -r -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --force-conflicts -f -; then
         just log fatal "Failed to apply base crds" "stage" "{{ recipe_name() }}"
     fi
 
 [private]
 apps:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    if ! helmfile -f "{{ source_directory() }}/helmfile.d/01-apps.yaml" sync --hide-notes; then
+    if ! helmfile -f "{{ source_directory() }}/helmfile/apps.yaml" sync --hide-notes; then
         just log fatal "Failed to sync helmfile" "stage" "{{ recipe_name() }}"
     fi
 
-# Helm and kubectl calls after this stage are not retried.
+# Wait until every apiserver answers /readyz. Helm and kubectl calls after this stage are not retried.
 [private]
 api-ready:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
@@ -68,7 +68,7 @@ api-ready:
         done
     done
 
-# Nodes only become Ready=True once the CNI is healthy.
+# Wait until every node registers as Ready=False. They only become Ready=True once the CNI is healthy.
 [private]
 nodes-ready:
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
