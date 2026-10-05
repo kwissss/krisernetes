@@ -7,7 +7,7 @@ metadata:
 spec:
   name: filesystem-trim
   task: filesystem-trim
-  # Before the 04:00 VolSync backups, so snapshot clones skip freed blocks
+  # Before the 05:00 kopiur backups, so snapshot clones skip freed blocks
   cron: 0 3 * * *
   groups:
     - default

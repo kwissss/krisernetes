@@ -69,86 +69,45 @@ remount-all:
         just kube remount "$ns" "$app"
     done <<< "$apps"
 
-[doc('Restore a PVC from VolSync')]
+[doc('Restore a PVC from kopiur')]
 restore ns app previous='0':
     flux -n {{ ns }} suspend kustomization {{ app }}
     flux -n {{ ns }} suspend helmrelease {{ app }}
     kubectl -n {{ ns }} get deploy,sts -l app.kubernetes.io/name={{ app }} -o name \
         | xargs -r -I{} kubectl -n {{ ns }} scale {} --replicas=0
     kubectl -n {{ ns }} wait pod --for=delete --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
-    kubectl -n {{ ns }} get replicationdestination {{ app }}-dst -o json \
-        | jq 'del(.status)
-            | .metadata = {name: "{{ app }}-manual", namespace: .metadata.namespace}
-            | .spec.restic.copyMethod = "Direct"
-            | .spec.restic.destinationPVC = "{{ app }}"
-            | .spec.restic.previous = {{ previous }}' \
-        | kubectl apply --server-side -f -
-    kubectl -n {{ ns }} wait job/volsync-dst-{{ app }}-manual --for=create --timeout=120s
-    kubectl -n {{ ns }} wait job/volsync-dst-{{ app }}-manual --for=condition=complete --timeout=120m
-    kubectl -n {{ ns }} delete replicationdestination {{ app }}-manual
+    # --from-policy defaults to continuing without a snapshot, which would leave the PVC as it is
+    kubectl kopiur restore -n {{ ns }} --from-policy {{ app }} --offset {{ previous }} --to-pvc {{ app }} \
+        --on-missing-snapshot fail --enable-file-deletion --wait --timeout 2h
     flux -n {{ ns }} resume kustomization {{ app }}
     flux -n {{ ns }} resume helmrelease {{ app }}
     flux -n {{ ns }} reconcile helmrelease {{ app }} --force
     kubectl -n {{ ns }} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
 
-[doc('Snapshot a PVC with VolSync')]
+[doc('Snapshot a PVC with kopiur')]
 snapshot ns app:
-    kubectl -n {{ ns }} patch replicationsources {{ app }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}"
-    kubectl -n {{ ns }} wait job/volsync-src-{{ app }} --for=create --timeout=120s
-    kubectl -n {{ ns }} wait job/volsync-src-{{ app }} --for=condition=complete --timeout=120m
+    kubectl kopiur snapshot now -n {{ ns }} --policy {{ app }} --wait --timeout 2h
 
-[doc('Snapshot all PVCs with VolSync')]
+[doc('Snapshot all PVCs with kopiur')]
 snapshot-all:
-    ts="$(date +%s)"
-    sources="$(kubectl get replicationsources -A --no-headers -o custom-columns=NS:.metadata.namespace,NAME:.metadata.name)"
+    policies="$(kubectl get snapshotpolicies -A --no-headers -o custom-columns=NS:.metadata.namespace,NAME:.metadata.name)"
+    pids=()
     while read -r ns app; do
-        kubectl -n "$ns" patch replicationsources "$app" --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"${ts}\"}}}"
-    done <<< "$sources"
-    # A manual trigger overrides the schedule in VolSync, so drop it once the sync is done
-    while read -r ns app; do
-        kubectl -n "$ns" wait replicationsources "$app" --for=jsonpath='{.status.lastManualSync}'="${ts}" --timeout=120m
-        kubectl -n "$ns" patch replicationsources "$app" --type json -p '[{"op":"remove","path":"/spec/trigger/manual"}]'
-    done <<< "$sources"
-
-[doc('Unlock a VolSync restic repository')]
-unlock ns app:
-    kubectl apply --server-side -f - <<EOF
-    apiVersion: batch/v1
-    kind: Job
-    metadata:
-      name: volsync-unlock-{{ app }}
-      namespace: {{ ns }}
-    spec:
-      ttlSecondsAfterFinished: 3600
-      template:
-        spec:
-          automountServiceAccountToken: false
-          restartPolicy: OnFailure
-          containers:
-            - name: restic
-              image: docker.io/restic/restic:latest
-              args: ["unlock", "--remove-all"]
-              envFrom:
-                - secretRef:
-                    name: {{ app }}-volsync-secret
-              volumeMounts:
-                - name: repository
-                  mountPath: /repository
-          volumes:
-            - name: repository
-              nfs:
-                server: nas.internal
-                path: /volume1/volsync
-    EOF
-    kubectl -n {{ ns }} wait job/volsync-unlock-{{ app }} --for=condition=complete --timeout=5m
-    kubectl -n {{ ns }} delete job volsync-unlock-{{ app }}
+        kubectl kopiur snapshot now -n "$ns" --policy "$app" --wait --timeout 2h < /dev/null &
+        pids+=("$!")
+    done <<< "$policies"
+    failed=0
+    for pid in "${pids[@]}"; do
+        wait "$pid" || failed=1
+    done
+    exit "$failed"
 
 [arg('state', pattern='suspend|resume')]
-[doc('Suspend or resume VolSync')]
-volsync state:
-    flux -n volsync-system {{ state }} kustomization volsync
-    flux -n volsync-system {{ state }} helmrelease volsync
-    kubectl -n volsync-system scale deployment volsync --replicas {{ if state == "suspend" { "0" } else { "1" } }}
+[doc('Suspend or resume kopiur')]
+kopiur state:
+    flux -n kopiur-system {{ state }} kustomization kopiur
+    flux -n kopiur-system {{ state }} helmrelease kopiur
+    kubectl -n kopiur-system scale deployment kopiur-controller --replicas {{ if state == "suspend" { "0" } else { "1" } }}
 
 [arg('resource', pattern='hr|ks|gitrepo|ocirepo|es')]
 [doc('Sync a resource')]
