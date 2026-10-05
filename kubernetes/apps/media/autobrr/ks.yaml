@@ -7,9 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-  dependsOn:
-    - name: longhorn
-      namespace: storage
   interval: 1h
   path: ./kubernetes/apps/media/autobrr/app
   postBuild:
