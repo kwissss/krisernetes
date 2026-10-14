@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 2.43.4@sha256:c34ee9107a42b837e25cec0c8a927ab90a45b776aa2ccbf15e5b9cda466fad2c
+              tag: 2.44.1@sha256:b3cad95e5040be9e2b518ed67e4ec4684604021f96d4a7e5130e97ac4bb7225c
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: false # >4m+ startup time?
               EXECUTIONS_TIMEOUT: 600
