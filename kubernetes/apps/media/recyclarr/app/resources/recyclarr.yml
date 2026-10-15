@@ -1,0 +1,80 @@
+# yaml-language-server: $schema=https://schemas.recyclarr.dev/v8/config-schema.json
+radarr:
+  radarr-hd:
+    api_key: !env_var RADARR_API_KEY
+    base_url: http://radarr-hd.media.svc.cluster.local
+    delete_old_custom_formats: true
+
+    media_management:
+      propers_and_repacks: do_not_prefer
+
+    media_naming:
+      folder: plex-tmdb
+      movie:
+        rename: true
+        standard: plex-tmdb
+
+    quality_definition:
+      type: sqp-uhd
+
+    quality_profiles:
+      - trash_id: 7526db7ac0a1f764793fb181864d0222 # [SQP] SQP-4 (MA Hybrid)
+        reset_unmatched_scores:
+          enabled: true
+
+    custom_format_groups:
+      add:
+        - trash_id: 1616617ab3a14397a2b2321bcbda44d1 # [HDR Formats] DV Boost
+        - trash_id: 7fc2751eef7e6bdc70b74136e5e35c76 # [HDR Formats] DV (w/o HDR fallback)
+        - trash_id: bc3c13e52f2971319bc1748ffa3d1078 # [Optional] Accessibility
+          select_all: true
+        - trash_id: f4f1474b963b24cf983455743aa9906c # [Optional] Movie Versions
+          select:
+            - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
+            - 957d0f44b592285f26449575e8b1167e # Special Edition
+        - trash_id: f638e33c933bf0a8067559247953a270 # [SQP-4 (MA Hybrid) Optional] Release Groups
+          select:
+            - e098247bc6652dd88c76644b275260ed # FLUX
+            - 8cd3ac70db7ac318cf9a0e01333940a4 # SiC
+
+sonarr:
+  sonarr-hd:
+    api_key: !env_var SONARR_API_KEY
+    base_url: http://sonarr-hd.media.svc.cluster.local
+    delete_old_custom_formats: true
+
+    media_management:
+      propers_and_repacks: do_not_prefer
+
+    media_naming:
+      episodes:
+        anime: default
+        daily: default
+        rename: true
+        standard: default
+      season: default
+      series: plex-tvdb
+
+    quality_definition:
+      type: series
+
+    quality_profiles:
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
+      - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
+        reset_unmatched_scores:
+          enabled: true
+      - trash_id: 20e0fc959f1f1704bed501f23bdae76f # [Anime] Remux-1080p
+        quality_definition:
+          type: anime
+        reset_unmatched_scores:
+          enabled: true
+
+    custom_format_groups:
+      add:
+        - trash_id: d920fd959d220306888f40b6f38e1578 # [Optional] Season Packs
+        - trash_id: e0b2774083df4265f25c9e5bc6c80940 # [HDR Formats] DV Boost
+        - trash_id: d776a1ea912a117d66d83b880ff2055d # [HDR Formats] DV (w/o HDR fallback)
+        - trash_id: bad5bc85573a0134e1e1987c46f67e98 # [Optional] Accessibility
+          select_all: true

@@ -47,6 +47,7 @@
     "vs-kubernetes.knownKubeconfigs": ["./kubeconfig"]
   },
   "window.zoomLevel": 0,
+  "yaml.customTags": ["!env_var scalar"],
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "kubernetes": "./kubernetes/**/*.yaml"
