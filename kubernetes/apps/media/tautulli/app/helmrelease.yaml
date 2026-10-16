@@ -22,6 +22,9 @@ spec:
             env:
               TZ: Europe/Oslo
               TAUTULLI_HTTP_PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
