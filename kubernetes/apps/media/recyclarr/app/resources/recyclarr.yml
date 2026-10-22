@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://schemas.recyclarr.dev/v8/config-schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/refs/tags/v8.0.0/schemas/config-schema.json
 radarr:
   radarr-hd:
     api_key: !env_var RADARR_API_KEY
