@@ -23,5 +23,6 @@ resources:
   - ./readarr/ks.yaml
   - ./readarr-ab/ks.yaml
   - ./recyclarr/ks.yaml
+  - ./shelfmark/ks.yaml
   - ./sonarr-hd/ks.yaml
   - ./tautulli/ks.yaml
