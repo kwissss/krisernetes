@@ -61,7 +61,7 @@ releases:
     needs:
       - cert-manager/cert-manager
 
-  - name: onepassword
+  - name: onepassword-connect
     namespace: external-secrets
     hooks:
       - # Wait for CRDs to be available
@@ -90,7 +90,7 @@ releases:
   - name: flux-operator
     namespace: flux-system
     needs:
-      - external-secrets/onepassword
+      - external-secrets/onepassword-connect
 
   - name: flux-instance
     namespace: flux-system

@@ -52,7 +52,7 @@ graph LR
 5. **apps** - `helmfile sync` of `helmfile/apps.yaml`, the minimal release
    chain Flux needs before it can take over:
 
-    cilium → coredns → cert-manager → external-secrets → onepassword →
+    cilium → coredns → cert-manager → external-secrets → onepassword-connect →
     flux-operator → flux-instance
 
     Once `flux-instance` is healthy, Flux reconciles `kubernetes/` and manages
