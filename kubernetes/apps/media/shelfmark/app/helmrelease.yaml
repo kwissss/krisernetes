@@ -34,6 +34,12 @@ spec:
               QBITTORRENT_URL: http://qbittorrent.media.svc.cluster.local
               QBITTORRENT_CATEGORY: shelfmark-books
               QBITTORRENT_CATEGORY_AUDIOBOOK: shelfmark-audiobooks
+              AUTH_METHOD: oidc
+              OIDC_DISCOVERY_URL: https://id.kris.party/.well-known/openid-configuration
+              OIDC_ADMIN_GROUP: shelfmark-admins
+              DISABLE_LOCAL_AUTH: "true"
+              OIDC_AUTO_REDIRECT: "true"
+              SESSION_COOKIE_SECURE: "true"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -85,7 +91,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.kris.party"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: network
     persistence:
       config:
