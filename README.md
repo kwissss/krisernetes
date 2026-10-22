@@ -60,8 +60,7 @@ Flux recursively searches the `kubernetes/apps` folder until it finds the top le
 📁 bootstrap       # helmfile used once to bootstrap the cluster
 📁 kubernetes
 ├── 📁 apps        # applications, one folder per namespace
-├── 📁 components  # re-useable kustomize components (kopiur)
-└── 📁 flux        # flux system configuration
+└── 📁 components  # re-useable kustomize components (kopiur)
 📁 talos           # talos machine configuration and patches
 ```
 
