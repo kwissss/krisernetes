@@ -15,4 +15,5 @@ resources:
   - ./lspd-application/ks.yaml
   - ./mining-cult/ks.yaml
   - ./n8n/ks.yaml
+  - ./pocket-id/ks.yaml
   - ./thelounge/ks.yaml
