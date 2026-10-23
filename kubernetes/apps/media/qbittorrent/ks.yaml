@@ -7,7 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-    - ../../../../components/oidc
+    - ../../../../components/oidc/policy
     - ../../../../components/zeroscaler
   interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/app
