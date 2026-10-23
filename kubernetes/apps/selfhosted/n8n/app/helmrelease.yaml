@@ -22,7 +22,6 @@ spec:
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: false # >4m+ startup time?
               EXECUTIONS_TIMEOUT: 600
-              EXECUTIONS_DATA_PRUNE_MAX_COUNT: 50000
               GENERIC_TIMEZONE: Europe/Oslo
               N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.kris.party"
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
