@@ -15,7 +15,6 @@ resources:
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./seerr/ks.yaml
-  - ./maintainerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
