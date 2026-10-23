@@ -16,7 +16,6 @@ spec:
       nodeDrainPolicy: allow-if-replica-is-stopped
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
     persistence:
-      reclaimPolicy: Delete
       defaultClassReplicaCount: 1
     longhornGlobalManager:
       replicas: 1
