@@ -36,7 +36,7 @@ spec:
               QBITTORRENT_CATEGORY_AUDIOBOOK: audiobooks
               AUTH_METHOD: oidc
               OIDC_DISCOVERY_URL: https://id.kris.party/.well-known/openid-configuration
-              OIDC_ADMIN_GROUP: admins
+              OIDC_ADMIN_GROUP: admin
               DISABLE_LOCAL_AUTH: "true"
               OIDC_AUTO_REDIRECT: "true"
               SESSION_COOKIE_SECURE: "true"
