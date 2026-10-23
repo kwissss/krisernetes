@@ -32,11 +32,11 @@ spec:
               PROWLARR_URL: http://prowlarr.media.svc.cluster.local
               PROWLARR_TORRENT_CLIENT: qbittorrent
               QBITTORRENT_URL: http://qbittorrent.media.svc.cluster.local
-              QBITTORRENT_CATEGORY: shelfmark-books
-              QBITTORRENT_CATEGORY_AUDIOBOOK: shelfmark-audiobooks
+              QBITTORRENT_CATEGORY: books
+              QBITTORRENT_CATEGORY_AUDIOBOOK: audiobooks
               AUTH_METHOD: oidc
               OIDC_DISCOVERY_URL: https://id.kris.party/.well-known/openid-configuration
-              OIDC_ADMIN_GROUP: shelfmark-admins
+              OIDC_ADMIN_GROUP: admins
               DISABLE_LOCAL_AUTH: "true"
               OIDC_AUTO_REDIRECT: "true"
               SESSION_COOKIE_SECURE: "true"
