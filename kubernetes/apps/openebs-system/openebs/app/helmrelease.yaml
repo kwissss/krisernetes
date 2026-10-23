@@ -31,7 +31,6 @@ spec:
       csi:
         volumeSnapshots:
           enabled: false
-          keep: false
     engines:
       local:
         lvm:
