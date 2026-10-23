@@ -21,8 +21,6 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./radarr-hd/ks.yaml
-  # - ./readarr/ks.yaml
-  # - ./readarr-ab/ks.yaml
   - ./recyclarr/ks.yaml
   - ./shelfmark/ks.yaml
   - ./sonarr-hd/ks.yaml
