@@ -14,9 +14,17 @@ spec:
       feedback_links_enabled: "false"
       reporting_enabled: "false"
     auth:
-      disable_login_form: "false"
-    auth.anonymous:
+      disable_login_form: "true"
+    auth.generic_oauth:
       enabled: "true"
+      name: Pocket ID
+      scopes: openid email profile groups
+      auth_url: https://id.kris.party/authorize
+      token_url: https://id.kris.party/api/oidc/token
+      api_url: https://id.kris.party/api/oidc/userinfo
+      use_pkce: "true"
+      auto_login: "true"
+      role_attribute_path: contains(groups[*], 'admin') && 'Admin' || 'Viewer'
     log:
       mode: console
     metrics:
@@ -44,6 +52,16 @@ spec:
                     secretKeyRef:
                       name: grafana-admin-password-secret
                       key: GF_SECURITY_ADMIN_PASSWORD
+                - name: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-admin-password-secret
+                      key: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+                - name: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: grafana-admin-password-secret
+                      key: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
