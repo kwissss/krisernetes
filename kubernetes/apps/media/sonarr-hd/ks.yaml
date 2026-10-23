@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sonarr-hd
+  name: sonarr-hd
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -13,8 +13,7 @@ spec:
   path: ./kubernetes/apps/media/sonarr-hd/app
   postBuild:
     substitute:
-      APP: *app
-      KOPIUR_CAPACITY: 5Gi
+      APP: sonarr-hd
   prune: true
   sourceRef:
     kind: GitRepository

@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app thelounge
+  name: thelounge
 spec:
   components:
     - ../../../../components/kopiur/backup
@@ -11,8 +11,7 @@ spec:
   path: ./kubernetes/apps/selfhosted/thelounge/app
   postBuild:
     substitute:
-      APP: *app
-      KOPIUR_CAPACITY: 5Gi
+      APP: thelounge
   prune: true
   sourceRef:
     kind: GitRepository
