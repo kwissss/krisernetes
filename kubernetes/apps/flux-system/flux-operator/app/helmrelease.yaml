@@ -13,13 +13,7 @@ spec:
     serviceMonitor:
       create: true
     web:
-      config:
-        authentication:
-          type: Anonymous
-          anonymous:
-            username: flux
-            groups:
-              - flux-admin
+      configSecretName: flux-operator-web-secret
       httpRoute:
         enabled: true
         hostnames:
