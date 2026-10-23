@@ -6,6 +6,7 @@ namespace: storage
 
 components:
   - ../../components/alerts
+  - ../../components/oidc/secret
 
 resources:
   - ./namespace.yaml

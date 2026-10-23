@@ -5,8 +5,13 @@ kind: Kustomization
 metadata:
   name: longhorn
 spec:
+  components:
+    - ../../../../components/oidc/policy
   interval: 1h
   path: ./kubernetes/apps/storage/longhorn/app
+  postBuild:
+    substitute:
+      APP: longhorn
   prune: true
   sourceRef:
     kind: GitRepository
