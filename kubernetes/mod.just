@@ -109,6 +109,33 @@ kopiur state:
     flux -n kopiur-system {{ state }} helmrelease kopiur
     kubectl -n kopiur-system scale deployment kopiur-controller --replicas {{ if state == "suspend" { "0" } else { "1" } }}
 
+[arg('mode', pattern='dry-run|apply')]
+[doc('Remove the bootstrap "helm" field manager from all Helm release objects')]
+strip-helm-manager mode='dry-run':
+    # A leftover "helm" manager co-owns list entries, so a chart removing one leaves a half entry and the upgrade fails
+    helm list -A -o json | jq -r '.[] | "\(.namespace) \(.name)"' \
+        | while read -r release_ns release; do
+            # kubectl -n would reject objects that set another namespace, so only fill in the missing ones
+            helm -n "$release_ns" get manifest "$release" \
+                | release_ns=$release_ns yq ea '(select(.metadata != null and .metadata.namespace == null) | .metadata.namespace) = strenv(release_ns)'
+            echo "---"
+        done \
+        | kubectl get -f - --ignore-not-found --show-managed-fields -o json \
+        | jq -r '(.items // [.])[]
+            | (.metadata.managedFields | map(.manager) | index("helm")) as $i
+            | select($i != null)
+            | (.apiVersion | split("/")) as $gv
+            | [.kind + (if ($gv | length) == 2 then "." + $gv[0] else "" end), .metadata.name, $i, (.metadata.namespace // "")]
+            | @tsv' \
+        | while IFS=$'\t' read -r res name i ns; do
+            if [[ "{{ mode }}" == "dry-run" ]]; then
+                echo "would patch: $res ${ns:+$ns/}$name (managedFields[$i])"
+                continue
+            fi
+            kubectl ${ns:+-n "$ns"} patch "$res" "$name" --type=json \
+                -p "[{\"op\":\"test\",\"path\":\"/metadata/managedFields/$i/manager\",\"value\":\"helm\"},{\"op\":\"remove\",\"path\":\"/metadata/managedFields/$i\"}]"
+        done
+
 [arg('resource', pattern='hr|ks|gitrepo|ocirepo|es')]
 [doc('Sync a resource')]
 sync resource:
