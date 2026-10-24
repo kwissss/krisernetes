@@ -115,7 +115,9 @@ strip-helm-manager mode='dry-run':
     # A leftover "helm" manager co-owns list entries, so a chart removing one leaves a half entry and the upgrade fails
     helm list -A -o json | jq -r '.[] | "\(.namespace) \(.name)"' \
         | while read -r release_ns release; do
-            helm -n "$release_ns" get manifest "$release"
+            # kubectl -n would reject objects that set another namespace, so only fill in the missing ones
+            helm -n "$release_ns" get manifest "$release" \
+                | release_ns=$release_ns yq ea '(select(.metadata != null and .metadata.namespace == null) | .metadata.namespace) = strenv(release_ns)'
             echo "---"
         done \
         | kubectl get -f - --ignore-not-found --show-managed-fields -o json \
