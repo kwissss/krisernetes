@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: snmp-exporter-rules
+spec:
+  groups:
+    - name: synology.rules
+      rules:
+        # 2-10 are maintenance states (repairing, syncing, parity checking during data scrubs, ...)
+        - alert: SynologyRaidDegraded
+          expr: |-
+            raidStatus >= 11
+          for: 5m
+          annotations:
+            summary: >-
+              {{ $labels.raidName }} on {{ $labels.instance }} is degraded or crashed (status {{ $value }})
+          labels:
+            severity: critical
+
+        - alert: SynologyDiskUnhealthy
+          expr: |-
+            diskStatus >= 4 or diskHealthStatus >= 2
+          for: 5m
+          annotations:
+            summary: >-
+              Disk {{ $labels.diskID }} on {{ $labels.instance }} is failed or reports degraded health
+          labels:
+            severity: critical
+
+        - alert: SynologyHardwareFailed
+          expr: |-
+            systemStatus == 2 or powerStatus == 2 or systemFanStatus == 2 or cpuFanStatus == 2
+          for: 5m
+          annotations:
+            summary: >-
+              {{ $labels.instance }} reports a failed system, power supply or fan
+          labels:
+            severity: critical
