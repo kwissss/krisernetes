@@ -33,7 +33,30 @@ spec:
     envoy:
       enabled: false
     hubble:
-      enabled: false
+      export:
+        static:
+          enabled: true
+          filePath: stdout
+          aggregationInterval: 5m
+          fieldAggregate:
+            - source.namespace
+            - source.workloads
+            - source.labels
+            - destination.namespace
+            - destination.workloads
+            - destination.labels
+            - l4.TCP.destination_port
+            - l4.UDP.destination_port
+            - verdict
+          allowList:
+            - '{"reply":[false]}'
+      metrics:
+        enabled:
+          - drop:sourceContext=workload|reserved-identity;destinationContext=workload|reserved-identity
+          - flow:sourceContext=workload|reserved-identity;destinationContext=workload|reserved-identity
+          - flows-to-world:port;syn-only;sourceContext=workload
+        serviceMonitor:
+          enabled: true
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "10.42.0.0/16"
