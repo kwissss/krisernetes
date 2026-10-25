@@ -33,6 +33,8 @@ spec:
       news_feed_enabled: "false"
     plugins:
       plugin_admin_enabled: "false"
+      # Updating bundled plugins fails on the read-only root filesystem and unloads them
+      preinstall_auto_update: "false"
     security:
       angular_support_enabled: "true"
     server:
