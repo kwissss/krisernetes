@@ -37,4 +37,3 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: storage
-  wait: false
