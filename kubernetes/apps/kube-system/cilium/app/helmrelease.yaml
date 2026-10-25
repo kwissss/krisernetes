@@ -50,6 +50,8 @@ spec:
             - verdict
           allowList:
             - '{"reply":[false]}'
+          denyList:
+            - '{"source_pod":["media/qbittorrent-"],"destination_label":["reserved:world"]}'
       metrics:
         enabled:
           - drop:sourceContext=workload|reserved-identity;destinationContext=workload|reserved-identity
