@@ -10,6 +10,17 @@
   // The Main ruleset does not require up-to-date branches, and `auto` would
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
+  customManagers: [
+    {
+      customType: "regex",
+      description: "Process annotated container image dependencies (repo:tag@digest)",
+      managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+      matchStrings: [
+        "# renovate-image: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+[\\w.-]+:\\s*[^:\\s]+:(?<currentValue>[^@\\s]+)@(?<currentDigest>sha256:[a-f0-9]+)",
+      ],
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}docker{{/if}}",
+    },
+  ],
   packageRules: [
     // Auto-merge rules
     {
