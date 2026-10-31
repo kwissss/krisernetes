@@ -30,29 +30,29 @@ _... a single-node home Kubernetes cluster managed with Flux and Renovate_ <img 
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4a1/512.gif" alt="💡" width="20" height="20"> Overview
 
-This is a mono repository for my home Kubernetes cluster. Everything running on it is declared here and applied by [Flux](https://github.com/fluxcd/flux2); [Renovate](https://github.com/renovatebot/renovate) keeps the dependencies up to date through pull requests.
+This is a mono repository for my home Kubernetes cluster. It declares everything that runs on the cluster, and [Flux](https://github.com/fluxcd/flux2) applies it. [Renovate](https://github.com/renovatebot/renovate) keeps the dependencies up to date through pull requests.
 
 ---
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f331/512.gif" alt="🌱" width="20" height="20"> Kubernetes
 
-My Kubernetes cluster is a single [Talos Linux](https://www.talos.dev) node. This is a semi-hyper-converged cluster; workloads and storage share the same resources, while I have a separate server with btrfs for NFS/SMB shares, bulk file storage and backups.
+My Kubernetes cluster is a single [Talos Linux](https://www.talos.dev) node. This cluster is semi-hyper-converged, which means that workloads and storage share the same resources. A separate server with btrfs holds the NFS/SMB shares, bulk file storage and backups.
 
 ### Core Components
 
 - **Networking**: [cilium](https://github.com/cilium/cilium) provides eBPF-based networking, replaces kube-proxy and announces LoadBalancer IPs over L2. [envoy-gateway](https://github.com/envoyproxy/gateway) serves the Gateway API with separate internal and external gateways, and [cloudflared](https://github.com/cloudflare/cloudflared) exposes the external one through a Cloudflare Tunnel.
 - **DNS & Certificates**: two [external-dns](https://github.com/kubernetes-sigs/external-dns) instances keep records in sync (see [DNS](#-dns)), and [cert-manager](https://github.com/cert-manager/cert-manager) automates the SSL/TLS certificate management.
 - **Secrets**: [external-secrets](https://github.com/external-secrets/external-secrets) with [1Password Connect](https://github.com/1Password/connect) injects secrets into Kubernetes.
-- **Storage & Data Protection**: [longhorn](https://github.com/longhorn/longhorn) provides application volumes and CSI snapshots, and [openebs](https://github.com/openebs/openebs) local hostpath volumes cover caches and the observability stack. [kopiur](https://github.com/home-operations/kopiur) handles backups and restores, and disaster recovery is declarative: on an empty cluster, every app's volume is restored from its latest backup before the app starts.
-- **Observability**: [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) with Alertmanager sending to Discord, [grafana-operator](https://github.com/grafana/grafana-operator) for dashboards, and [victoria-logs](https://github.com/VictoriaMetrics/VictoriaLogs) fed by [fluent-bit](https://github.com/fluent/fluent-bit).
+- **Storage & Data Protection**: [longhorn](https://github.com/longhorn/longhorn) provides application volumes and CSI snapshots, and [openebs](https://github.com/openebs/openebs) local hostpath volumes cover caches and the observability stack. [kopiur](https://github.com/home-operations/kopiur) handles backups and restores. Disaster recovery is declarative. On an empty cluster, kopiur restores the volume of each app from its latest backup before the app starts.
+- **Observability**: [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) collects metrics, and Alertmanager sends alerts to Discord. [grafana-operator](https://github.com/grafana/grafana-operator) manages the dashboards. [victoria-logs](https://github.com/VictoriaMetrics/VictoriaLogs) stores the logs from [victoria-logs-collector](https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-logs-collector).
 
 ### GitOps
 
-[Flux](https://github.com/fluxcd/flux2), installed and upgraded by the [flux-operator](https://github.com/controlplaneio-fluxcd/flux-operator), watches the [kubernetes](./kubernetes/) folder and makes the changes to my cluster based on the state of my Git repository.
+The [flux-operator](https://github.com/controlplaneio-fluxcd/flux-operator) installs and upgrades [Flux](https://github.com/fluxcd/flux2). Flux watches the [kubernetes](./kubernetes/) folder and changes my cluster to match the state of my Git repository.
 
-Flux recursively searches the `kubernetes/apps` folder until it finds the top level `kustomization.yaml` per directory and applies all the resources listed in it. That `kustomization.yaml` generally only has a namespace resource and one or many Flux kustomizations (`ks.yaml`). Under the control of those Flux kustomizations there is a `HelmRelease` or other resources related to the application.
+Flux recursively searches the `kubernetes/apps` folder until it finds the top level `kustomization.yaml` per directory and applies all the resources listed in it. That `kustomization.yaml` generally only has a namespace resource and one or many Flux kustomizations (`ks.yaml`). Those Flux kustomizations control a `HelmRelease` or other resources for the application.
 
-[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository for dependency updates and opens a pull request when it finds one. Every pull request is rendered and diffed with [flate](https://github.com/home-operations/flate) in GitHub Actions, and once merged, Flux applies the change to my cluster.
+[Renovate](https://github.com/renovatebot/renovate) watches my entire repository for dependency updates. When Renovate finds an update, it opens a pull request. [flate](https://github.com/home-operations/flate) renders and diffs every pull request in GitHub Actions. After a merge, Flux applies the change to my cluster.
 
 ### Directories
 
@@ -60,7 +60,7 @@ Flux recursively searches the `kubernetes/apps` folder until it finds the top le
 📁 bootstrap       # helmfile used once to bootstrap the cluster
 📁 kubernetes
 ├── 📁 apps        # applications, one folder per namespace
-└── 📁 components  # re-useable kustomize components (kopiur)
+└── 📁 components  # reusable kustomize components (kopiur)
 📁 talos           # talos machine configuration and patches
 ```
 
@@ -68,7 +68,7 @@ Flux recursively searches the `kubernetes/apps` folder until it finds the top le
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636_200d_1f32b_fe0f/512.gif" alt="😶" width="20" height="20"> Cloud Dependencies
 
-Most of my infrastructure is self-hosted, but a few key parts rely on the cloud. This avoids chicken-and-egg problems (the secrets needed to build the cluster can't live inside it) and keeps critical services working when the cluster is down.
+Most of my infrastructure is self-hosted, but a few key parts rely on the cloud. The cluster cannot store the secrets that are necessary to build it. When the cluster is down, cloud services keep critical services available.
 
 | Service                                   | Use                                                                      |
 | ----------------------------------------- | ------------------------------------------------------------------------ |
@@ -81,7 +81,7 @@ Most of my infrastructure is self-hosted, but a few key parts rely on the cloud.
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30e/512.gif" alt="🌎" width="20" height="20"> DNS
 
-Two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) run in my cluster. One syncs private records for every route and LoadBalancer service to the UniFi gateway using the [ExternalDNS webhook provider for UniFi](https://github.com/home-operations/external-dns-unifi-webhook), while the other syncs public, proxied records to `Cloudflare`. Only routes attached to the `envoy-external` gateway are published to Cloudflare, so anything on `envoy-internal` stays resolvable on the LAN only.
+Two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) run in my cluster. One instance uses the [ExternalDNS webhook provider for UniFi](https://github.com/home-operations/external-dns-unifi-webhook) to sync private records for every route and LoadBalancer service to the UniFi gateway. The other instance syncs public, proxied records to `Cloudflare`. It publishes only the routes attached to the `envoy-external` gateway, so routes on `envoy-internal` resolve only on the LAN.
 
 ---
 
@@ -103,7 +103,7 @@ Two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) 
 
 ### Networking (UniFi)
 
-- **Cloud Gateway Fiber**: router and firewall; also serves the private DNS records synced by ExternalDNS
+- **Cloud Gateway Fiber**: Router and firewall. It also serves the private DNS records that ExternalDNS syncs.
 - **USW Flex 2.5G 5**: 2.5 GbE 5-port switch
 - **U7 Pro**: Wi-Fi 7 access point
 
@@ -111,4 +111,4 @@ Two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) 
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
-Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev/) for ideas on how to deploy applications or what you could deploy.
+Thanks to all the people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Go to [kubesearch.dev](https://kubesearch.dev/) for ideas about which applications to deploy and how to deploy them.
