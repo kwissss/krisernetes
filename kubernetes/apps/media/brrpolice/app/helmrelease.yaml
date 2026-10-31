@@ -11,6 +11,12 @@ spec:
   interval: 1h
   values:
     config:
+      filters:
+        exclude_categories:
+          - audiobooks
+          - audiobooks-completed
+          - books
+          - books-completed
       qbittorrent:
         base_url: http://qbittorrent.media.svc.cluster.local
     extraEnv:
