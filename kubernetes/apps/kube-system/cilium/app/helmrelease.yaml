@@ -18,6 +18,7 @@ spec:
       datapathMode: veth # gVisor sandboxes get no network on netkit devices
       masquerade: true
       preallocateMaps: true
+      vlanBypass: [40]
     bpfClockProbe: true
     cgroup:
       autoMount:
