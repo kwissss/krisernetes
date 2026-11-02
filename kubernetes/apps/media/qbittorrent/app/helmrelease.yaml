@@ -52,9 +52,9 @@ spec:
             resources:
               requests:
                 cpu: 200m
-                memory: 3Gi
+                memory: 6Gi
               limits:
-                memory: 8Gi
+                memory: 12Gi
     defaultPodOptions:
       terminationGracePeriodSeconds: 600
       securityContext:
