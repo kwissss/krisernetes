@@ -97,12 +97,15 @@
         "/kube-controller-manager/",
         "/kube-proxy/",
         "/kube-scheduler/",
+        "/kubectl/",
         "/kubelet/",
       ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 5,
+      // Counts image references, not packages: the 6 from registry.k8s.io plus at least
+      // one kubelet, so the PR waits for ghcr.io/siderolabs/kubelet to be published.
+      minimumGroupSize: 7,
     },
     {
       // Unites the factory installer image and the tuppr upgrade version
