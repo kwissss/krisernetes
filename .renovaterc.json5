@@ -105,6 +105,16 @@
       minimumGroupSize: 5,
     },
     {
+      // Unites the factory installer image and the tuppr upgrade version
+      description: "Talos Group",
+      groupName: "talos",
+      matchPackageNames: ["siderolabs/talos"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Keep CloudNativePG on Postgres 18 until the extension images move with it",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],

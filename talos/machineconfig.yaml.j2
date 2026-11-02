@@ -177,6 +177,13 @@ kind: KubePrismConfig
 port: 7445
 ---
 apiVersion: v1alpha1
+kind: KubeTalosAPIAccessConfig
+allowedRoles:
+  - os:admin
+allowedKubernetesNamespaces:
+  - system-upgrade
+---
+apiVersion: v1alpha1
 kind: KubeAPIServerConfig
 certExtraSANs:
   - 127.0.0.1
