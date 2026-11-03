@@ -71,7 +71,7 @@ spec:
                   failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -100,7 +100,7 @@ spec:
               readiness: *runnersProbe
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -145,7 +145,12 @@ spec:
           n8n:
             app:
               - path: /home/node/.n8n
-      cache:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /home/node/.cache
+        advancedMounts:
+          n8n:
+            app:
+              - path: /home/node/.cache
+              - path: /tmp
+            runners:
+              - path: /tmp
