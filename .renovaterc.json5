@@ -118,6 +118,17 @@
       minimumGroupSize: 2,
     },
     {
+      // The runners sidecar tag must match the n8n version
+      description: "n8n Group",
+      groupName: "n8n",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/n8n-io/n8n", "ghcr.io/n8n-io/runners"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      minimumGroupSize: 2,
+    },
+    {
       description: "Keep CloudNativePG on Postgres 18 until the extension images move with it",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],

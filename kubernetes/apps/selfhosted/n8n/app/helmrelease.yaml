@@ -22,7 +22,8 @@ spec:
             env:
               DB_SQLITE_VACUUM_ON_STARTUP: false # >4m+ startup time?
               EXECUTIONS_TIMEOUT: 600
-              GENERIC_TIMEZONE: Europe/Oslo
+              GENERIC_TIMEZONE: &timezone Europe/Oslo
+              N8N_DIAGNOSTICS_ENABLED: false
               N8N_EDITOR_BASE_URL: "https://{{ .Release.Name }}.kris.party"
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
               N8N_VERSION_NOTIFICATIONS_ENABLED: false
@@ -32,11 +33,17 @@ spec:
               N8N_PORT: &port 80
               N8N_PROTOCOL: https
               N8N_PROXY_HOPS: 1
+              N8N_RUNNERS_MODE: external
               N8N_ENCRYPTION_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: n8n-secret
                     key: N8N_ENCRYPTION_KEY
+              N8N_RUNNERS_AUTH_TOKEN: &runnersAuthToken
+                valueFrom:
+                  secretKeyRef:
+                    name: n8n-secret
+                    key: N8N_RUNNERS_AUTH_TOKEN
             probes:
               liveness:
                 enabled: true
@@ -72,6 +79,35 @@ spec:
                 memory: 300Mi
               limits:
                 memory: 1Gi
+          runners:
+            image:
+              repository: ghcr.io/n8n-io/runners
+              tag: 3.1.0@sha256:730c78a31b9d5711319fff053a18e98ba5265f11769c88d1917506e9b33d2616
+            env:
+              GENERIC_TIMEZONE: *timezone
+              N8N_RUNNERS_AUTH_TOKEN: *runnersAuthToken
+            probes:
+              liveness: &runnersProbe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: 5680
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness: *runnersProbe
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
