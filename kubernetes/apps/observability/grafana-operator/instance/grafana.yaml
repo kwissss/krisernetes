@@ -27,6 +27,8 @@ spec:
       role_attribute_path: contains(groups[*], 'admin') && 'Admin' || 'Viewer'
     log:
       mode: console
+    log.console:
+      format: json
     metrics:
       enabled: "true"
     news:

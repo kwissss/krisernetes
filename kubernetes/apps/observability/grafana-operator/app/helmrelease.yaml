@@ -12,5 +12,7 @@ spec:
   values:
     dashboard:
       enabled: true
+    logging:
+      encoder: json
     serviceMonitor:
       enabled: true
