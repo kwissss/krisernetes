@@ -51,3 +51,44 @@ spec:
     uid: victoria-logs
     access: proxy
     url: http://victoria-logs-server.observability.svc.cluster.local:9428
+    jsonData:
+      # Only used when a log has no level field with a known level name; the first match wins.
+      # Exact formats (logfmt, zap, klog, Envoy) come before loose words so that a word in the message cannot win.
+      logLevelRules:
+        # 1Password Connect writes a numeric level
+        - { field: level, operator: equals, value: "1", level: error }
+        - { field: level, operator: equals, value: "2", level: warning }
+        - { field: level, operator: equals, value: "3", level: info }
+        - { field: level, operator: equals, value: "4", level: debug }
+        - field: _msg
+          operator: regex
+          value: 'level="?(?:error|ERROR|fatal|FATAL|panic|PANIC)\b|\t(?:error|fatal|panic|dpanic)\t|^E\d{4} \d\d:|\]\[(?:error|critical)\]\['
+          level: error
+        - field: _msg
+          operator: regex
+          value: 'level="?(?:warn|WARN|warning|WARNING)\b|\twarn\t|^W\d{4} \d\d:|\]\[warning\]\['
+          level: warning
+        - field: _msg
+          operator: regex
+          value: 'level="?(?:info|INFO)\b|\tinfo\t|^I\d{4} \d\d:|\]\[info\]\['
+          level: info
+        - field: _msg
+          operator: regex
+          value: 'level="?(?:debug|DEBUG)\b|\tdebug\t|\]\[debug\]\['
+          level: debug
+        - field: _msg
+          operator: regex
+          value: '[ \[](?:ERR|FTL|PNC)[ \]]|\[(?:[Ee]rror|[Ff]atal)\]|\bERROR\b'
+          level: error
+        - field: _msg
+          operator: regex
+          value: '[ \[]WRN[ \]]|\[[Ww]arn\]|\bWARN(?:ING)?\b'
+          level: warning
+        - field: _msg
+          operator: regex
+          value: '[ \[]INF[ \]]|\[[Ii]nfo\]|\bINFO\b'
+          level: info
+        - field: _msg
+          operator: regex
+          value: '[ \[]DBG[ \]]|\[[Dd]ebug\]|\bDEBUG\b'
+          level: debug
