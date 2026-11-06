@@ -37,7 +37,6 @@ spec:
                   httpGet:
                     path: /identity
                     port: &port 32400
-                  periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 5
               startup:
@@ -85,8 +84,7 @@ spec:
         rules:
           - name: app
             backendRefs: &backendRefs
-              - identifier: app
-                port: *port
+              - port: *port
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier: &pipeline

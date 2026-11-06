@@ -37,14 +37,12 @@ spec:
                   httpGet:
                     path: /api/v2/app/version
                     port: *port
-                  periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 5
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -78,7 +76,6 @@ spec:
         ports:
           bittorrent-tcp:
             port: *torrentPort
-            protocol: TCP
     route:
       app:
         hostnames:

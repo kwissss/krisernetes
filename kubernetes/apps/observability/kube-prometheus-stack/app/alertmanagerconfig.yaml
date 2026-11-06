@@ -73,7 +73,6 @@ spec:
                   {{- end }}
               {{- end }}
             {{- end }}
-          sendResolved: true
           title: >-
             [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
             {{ .CommonLabels.alertname }}

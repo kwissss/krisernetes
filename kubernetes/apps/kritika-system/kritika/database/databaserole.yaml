@@ -8,9 +8,6 @@ spec:
   cluster:
     name: kritika-postgres
   name: kritika_app
-  ensure: present
   login: true
-  inherit: true
   passwordSecret:
     name: kritika-postgres-app
-  databaseRoleReclaimPolicy: retain

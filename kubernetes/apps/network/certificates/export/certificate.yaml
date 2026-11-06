@@ -14,8 +14,6 @@ spec:
     kind: ClusterIssuer
   privateKey:
     algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
   secretName: "kris-party-production-tls"
   usages:
     - digital signature
@@ -35,8 +33,6 @@ spec:
     kind: ClusterIssuer
   privateKey:
     algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
   secretName: "lspdonline-net-production-tls"
   usages:
     - digital signature
