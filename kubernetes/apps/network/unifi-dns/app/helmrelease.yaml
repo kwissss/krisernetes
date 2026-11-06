@@ -36,6 +36,7 @@ spec:
     txtPrefix: k8s.main.%{record_type}-
     domainFilters:
       - kris.party
+    logFormat: json
     serviceMonitor:
       enabled: true
     podAnnotations:

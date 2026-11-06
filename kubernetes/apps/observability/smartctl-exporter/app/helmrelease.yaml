@@ -11,6 +11,8 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
+    extraArgs:
+      log.format: json
     prometheusRules:
       enabled: true
     serviceMonitor:

@@ -27,6 +27,7 @@ spec:
           global:
             resolveTimeout: 5m
         externalUrl: https://alertmanager.kris.party
+        logFormat: json
         storage:
           volumeClaimTemplate:
             spec:
@@ -51,6 +52,7 @@ spec:
               namespace: network
       prometheusSpec:
         externalUrl: https://prometheus.kris.party
+        logFormat: json
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
@@ -70,6 +72,8 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
+    prometheusOperator:
+      logFormat: json
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:

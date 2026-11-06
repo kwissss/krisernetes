@@ -24,6 +24,7 @@ spec:
               PORT: &port 80
               TRUST_PROXY: "true"
               ANALYTICS_DISABLED: "true"
+              LOG_JSON: "true"
               TZ: Europe/Oslo
             envFrom:
               - secretRef:
