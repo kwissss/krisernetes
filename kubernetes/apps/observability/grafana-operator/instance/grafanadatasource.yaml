@@ -43,7 +43,7 @@ spec:
       grafana.internal/instance: grafana
   plugins:
     - name: victoriametrics-logs-datasource
-      # renovate: datasource=github-releases depName=VictoriaMetrics/victorialogs-datasource
+      # renovate: datasource=custom.grafana-plugins depName=victoriametrics-logs-datasource
       version: 0.33.1
   datasource:
     type: victoriametrics-logs-datasource

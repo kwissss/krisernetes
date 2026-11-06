@@ -10,6 +10,16 @@
   // The Main ruleset does not require up-to-date branches, and `auto` would
   // still rebase every automerge PR each time main moves
   rebaseWhen: "conflicted",
+  customDatasources: {
+    // Grafana installs plugins from the Grafana.com catalog, which lists a
+    // version only after review, later than the GitHub release
+    "grafana-plugins": {
+      defaultRegistryUrlTemplate: "https://grafana.com/api/plugins/{{packageName}}/versions",
+      transformTemplates: [
+        '{"releases": [items.{"version": version, "releaseTimestamp": createdAt}], "sourceUrl": items[0].url}',
+      ],
+    },
+  },
   customManagers: [
     {
       customType: "regex",
