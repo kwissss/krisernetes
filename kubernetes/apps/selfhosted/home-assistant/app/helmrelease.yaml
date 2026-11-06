@@ -37,7 +37,8 @@ spec:
           [{
             "name": "iot",
             "namespace": "network",
-            "ips": ["192.168.40.200/24"]
+            "ips": ["192.168.40.200/24"],
+            "mac": "42:6e:b0:da:66:3e"
           }]
       securityContext:
         runAsNonRoot: true
