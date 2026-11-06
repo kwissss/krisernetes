@@ -25,7 +25,7 @@ spec:
         grafanaOperator:
           enabled: true
           matchLabels:
-            grafana.internal/instance: grafana
+            dashboards: grafana
     resources:
       requests:
         cpu: 10m

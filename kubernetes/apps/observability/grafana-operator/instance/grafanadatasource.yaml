@@ -7,7 +7,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasource:
     type: prometheus
     name: prometheus
@@ -23,7 +23,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   datasource:
     type: alertmanager
     name: alertmanager
@@ -40,7 +40,7 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      grafana.internal/instance: grafana
+      dashboards: grafana
   plugins:
     - name: victoriametrics-logs-datasource
       # renovate: datasource=custom.grafana-plugins depName=victoriametrics-logs-datasource
