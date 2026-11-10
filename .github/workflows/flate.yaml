@@ -36,12 +36,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    strategy:
-      matrix:
-        resource:
-          - helmrelease
-          - kustomization
-      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -57,17 +51,16 @@ jobs:
         env:
           FLATE_OUTPUT: github
           FLATE_PATH: ./kubernetes/apps
-          KIND: ${{ matrix.resource }}
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff $KIND >> $GITHUB_OUTPUT
+          flate diff all >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Add Comment
         uses: mshick/add-pr-comment@ec328af66588ab8f77cdeb2c264f14aba45bbf59 # v3.12.0
         with:
-          message-id: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}
+          message-id: ${{ github.event.pull_request.number }}/kubernetes
           message: |-
             ```diff
             ${{ steps.flate.outputs.diff }}
