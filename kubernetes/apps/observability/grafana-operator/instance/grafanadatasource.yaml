@@ -44,7 +44,7 @@ spec:
   plugins:
     - name: victoriametrics-logs-datasource
       # renovate: datasource=custom.grafana-plugins depName=victoriametrics-logs-datasource
-      version: 0.33.1
+      version: 0.34.0
   datasource:
     type: victoriametrics-logs-datasource
     name: victoria-logs
