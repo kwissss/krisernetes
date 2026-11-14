@@ -20,7 +20,6 @@ spec:
               repository: ghcr.io/music-assistant/server
               tag: 2.10.11@sha256:b14d5c1c93d776f33b9670a3c6febe3f072566d7b2f4f431a09dcca79bd8ac05
             env:
-              LOG_LEVEL: debug
               TZ: Europe/Oslo
             securityContext:
               allowPrivilegeEscalation: false
